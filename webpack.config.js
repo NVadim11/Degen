@@ -10,13 +10,12 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
     clean: true, // Очистка предыдущей сборки
-    publicPath: 'Degen'
   },
 
   // Настройка devServer для разработки
   devServer: {
     static: path.resolve(__dirname, 'dist'),
-    port: 3000,
+    port: 3006,
     open: true, // Автоматически открывать браузер
     hot: true,  // Включение горячей перезагрузки
   },
