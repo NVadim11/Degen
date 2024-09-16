@@ -10,6 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
     clean: true, // Очистка предыдущей сборки
+    publicPath: 'Degen'
   },
 
   // Настройка devServer для разработки
