@@ -3,7 +3,7 @@ import React from 'react';
 const Main = () => {
     return (
         <div>
-          <h1>Hello</h1>
+          <h1>Webpack + react</h1>
         </div>
       );
 }

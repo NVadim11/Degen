@@ -16,7 +16,7 @@ module.exports = {
   // Настройка devServer для разработки
   devServer: {
     static: path.resolve(__dirname, 'dist'),
-    port: 3007,
+    port: 3008,
     open: true, // Автоматически открывать браузер
     hot: true,  // Включение горячей перезагрузки
   },
