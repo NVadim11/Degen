@@ -9,14 +9,14 @@ module.exports = {
   // Куда будут собираться файлы
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/Degen/',
     filename: 'bundle.js',
+    clean: true, // Очистка предыдущей сборки
   },
 
   // Настройка devServer для разработки
   devServer: {
     static: path.resolve(__dirname, 'dist'),
-    port: 3011,
+    port: 3012,
     open: true, // Автоматически открывать браузер
     hot: true,  // Включение горячей перезагрузки
     historyApiFallback: true
