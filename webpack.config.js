@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   // Точка входа в приложение
@@ -15,7 +16,7 @@ module.exports = {
   // Настройка devServer для разработки
   devServer: {
     static: path.resolve(__dirname, 'dist'),
-    port: 3006,
+    port: 3007,
     open: true, // Автоматически открывать браузер
     hot: true,  // Включение горячей перезагрузки
   },
@@ -44,6 +45,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html', // Указываем путь к HTML шаблону
       filename: 'index.html',
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        REACT_APP_SECRET_URL: JSON.stringify(process.env.REACT_APP_SECRET_URL),
+      },
     }),
   ],
 

@@ -1,7 +1,18 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import AppRouter from './components/Router';
+import { store } from './store';
+import './App.scss';
 
 const App = () => {
-  return <h1>Hello, Webpack and React TEST!</h1>;
-};
+  return (
+    <>
+      <Provider store={store}>
+        <AppRouter />
+      </Provider>
+    </>
+
+  );
+}
 
 export default App;
