@@ -6,7 +6,10 @@ const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Main />,
-	}
+	},
+    {
+        basename: '/Degen', // Додаємо basename для підкаталогу GitHub Pages
+      }
 ]);
 
 const AppRouter = () => {
