@@ -1,5 +1,6 @@
 import AOS from 'aos';
 import moment from 'moment-timezone';
+import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useGetUserByTgIdQuery } from '../services/phpService';
 
