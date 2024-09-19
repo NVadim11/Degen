@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
 	useChangeWalletMutation,
 	usePassDailyMutation,
@@ -44,6 +44,12 @@ const Footer = ({ user }) => {
 	const [chatTaskStatus, setChatTaskStatus] = useState(user?.tg_chat || 0);
 	const [channelTaskStatus, setСhannelTaskStatus] = useState(user?.tg_channel || 0);
 	const [websiteTaskStatus, setWebsiteTaskStatus] = useState(user?.website || 0);
+	const partnerTaskObj = user?.partners_quests || [];
+	const [partnerTaskStatus, setPartnerTaskStatus] = useState([]);
+	const [timers, setTimers] = useState({});
+	const [activeTimerId, setActiveTimerId] = useState(null);
+
+	const timerRefs = useRef({});
 
 	const [timerTwitter, setTwitterTimer] = useState(0);
 	const [timerChat, setChatTimer] = useState(0);
@@ -300,10 +306,6 @@ const Footer = ({ user }) => {
 		);
 	};
 
-	const partnerTaskObj = user?.partners_quests || [];
-	const [partnerTaskStatus, setPartnerTaskStatus] = useState([]);
-	const [timers, setTimers] = useState({});
-
 	useEffect(() => {
 		if (user) {
 			setPartnerTaskStatus(
@@ -314,14 +316,13 @@ const Footer = ({ user }) => {
 				}))
 			);
 		}
-	}, [user, partnerTaskObj]);
+	}, [user]);
 
 	const partnerClick = (taskId, link) => {
-		
 		if (link) {
 			window.open(link, '_blank');
 		}
-	
+
 		setPartnerTaskStatus((prevStatus) => {
 			const updatedStatus = prevStatus.map((task) => {
 				if (task.id === taskId) {
@@ -333,36 +334,39 @@ const Footer = ({ user }) => {
 				}
 				return task;
 			});
-	
+
 			return updatedStatus;
 		});
-	
+
 		if (!timers[taskId]) {
 			setTimers((prevTimers) => ({
 				...prevTimers,
 				[taskId]: 15, // Set to 15 seconds
 			}));
 		}
+
+		setActiveTimerId(taskId);
 	};
-	
 
 	useEffect(() => {
-		const timerIntervals = {};
 		Object.keys(timers).forEach((taskId) => {
-			if (timers[taskId] > 0) {
-				timerIntervals[taskId] = setInterval(() => {
+			if (timers[taskId] > 0 && !timerRefs.current[taskId]) {
+				timerRefs.current[taskId] = setInterval(() => {
 					setTimers((prevTimers) => {
 						const updatedTimers = { ...prevTimers, [taskId]: prevTimers[taskId] - 1 };
 						if (updatedTimers[taskId] === 0) {
-							clearInterval(timerIntervals[taskId]);
+							clearInterval(timerRefs.current[taskId]);
+							delete timerRefs.current[taskId];
 						}
 						return updatedTimers;
 					});
 				}, 1000);
 			}
 		});
+
 		return () => {
-			Object.values(timerIntervals).forEach(clearInterval);
+			Object.values(timerRefs.current).forEach(clearInterval);
+			timerRefs.current = {};
 		};
 	}, [timers]);
 
@@ -371,7 +375,7 @@ const Footer = ({ user }) => {
 			if (timers[taskId] === 0) {
 				setPartnerTaskStatus((prevStatus) => {
 					const newStatus = prevStatus.map((task) => {
-						if (task.id === taskId && task.status === 2) {
+						if (task.id === parseInt(taskId) && task.status === 2) {
 							return { ...task, status: 3 };
 						}
 						return task;
@@ -382,6 +386,7 @@ const Footer = ({ user }) => {
 					const { [taskId]: _, ...rest } = prevTimers;
 					return rest;
 				});
+				setActiveTimerId(null);
 			}
 		});
 	}, [timers]);
@@ -405,16 +410,16 @@ const Footer = ({ user }) => {
 		}
 	};
 
-
-	useEffect(() => {
-		console.log('Checking partnerTaskStatus:', partnerTaskStatus);
-		Object.keys(timers).forEach((taskId) => {
-			console.log(
-				`Task status for ${taskId}:`,
-				partnerTaskStatus.find((task) => task.id === taskId)
-			);
-		});
-	}, [partnerTaskStatus]);
+	// useEffect(() => {
+	// 	console.log('Checking partnerTaskStatus:', partnerTaskStatus);
+	// 	Object.keys(timers).forEach((taskId) => {
+	// 		const task = partnerTaskStatus.find((task) => task.id === parseInt(taskId));
+	// 		console.log(`Task status for ${taskId}:`, task);
+	// 		if (task) {
+	// 			console.log(task.status);
+	// 		}
+	// 	});
+	// }, [partnerTaskStatus, timers]);
 
 	const twitterClick = async () => {
 		window.open('https://x.com/tema_cash', '_blank');
@@ -651,7 +656,7 @@ const Footer = ({ user }) => {
 							</div>
 							<div className='popupTasks__coins'>
 								<div className='popupTasks__coinBox'>
-									{user?.wallet_balance && (
+									{user?.wallet_balance > 0 && (
 										<>
 											<div className='popupTasks__coinImg' draggable='false'>
 												<img src={tigerCoin} alt='Tiger coin' />
@@ -990,9 +995,16 @@ const Footer = ({ user }) => {
 										.map((quest) => (
 											<div className='popupTasks__task' key={quest.id}>
 												<button
-													disabled={quest.status === 1}
+													disabled={
+														quest.status === 1 ||
+														(activeTimerId !== null && activeTimerId !== quest.id)
+													}
 													onClick={() => {
 														partnerClick(quest.id, quest.partners_quest.link);
+													}}
+													style={{
+														background: quest.status === 1 ? '#2cb726' : '',
+														color: quest.status === 1 ? '#ffffff' : '',
 													}}
 												>
 													<span>
@@ -1019,7 +1031,11 @@ const Footer = ({ user }) => {
 															{timers[quest.id]} {t('taskTimer')}
 														</p>
 													)}
-													{quest.status === 1 && <p>{t('activityDone')}</p>}
+													{quest.status === 1 && (
+														<p style={{ border: 'none', background: 'transparent' }}>
+															{t('activityDone')}
+														</p>
+													)}
 												</button>
 												{quest.status === 3 && (
 													<div

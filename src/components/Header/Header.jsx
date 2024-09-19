@@ -392,9 +392,7 @@ const Header = ({ user }) => {
 														<span>{player.position}</span>
 													</div>
 													<div className='popupLeaderboard__playerName'>
-														<span>
-															{player.username ?? 'anonymous'}
-														</span>
+														<span>{player.username ?? 'anonymous'}</span>
 													</div>
 													<div className='popupLeaderboard__coins'>
 														<span>{player.wallet_balance}</span>

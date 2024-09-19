@@ -5,7 +5,7 @@ import './Preloader.scss'; // Import the CSS file for styling
 const Preloader = ({ loaded }) => {
 	return (
 		<div
-		className={`preloader${loaded ? ' loaded' : ''}`}
+			className={`preloader${loaded ? ' loaded' : ''}`}
 			style={{
 				background: `url(${preloaderBG}) no-repeat center center/cover`,
 			}}

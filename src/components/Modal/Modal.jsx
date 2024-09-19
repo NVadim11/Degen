@@ -2,7 +2,7 @@ import React from 'react';
 import GreenIcon from './Icons/GreenIcon';
 import RedIcon from './Icons/RedIcon';
 import YellowIcon from './Icons/YellowIcon';
-import Icons from "../Common/IconsComponent.jsx";
+import Icons from '../Common/IconsComponent.jsx';
 
 import './Modal.scss';
 
@@ -37,9 +37,9 @@ export default function Modal({
 
 	return (
 		<div id='modalWindow' aria-hidden='true' className='modalWindow'>
-			<div className="modalWindow__layer"></div>
+			<div className='modalWindow__layer'></div>
 			<button onClick={errorCloseToggler} type='button' className='modalWindow__close'>
-				<Icons.Close/>
+				<Icons.Close />
 			</button>
 			<div className='modalWindow__icon'>{IconComponent && <IconComponent />}</div>
 			<div className='modalWindow__title'>
