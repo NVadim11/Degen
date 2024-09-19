@@ -1,12 +1,15 @@
-import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Main from './Main';
+import MainComponent from './MainComponent';
 
 const router = createBrowserRouter([
 	{
-		path: '/Degen',
-		element: <Main />,
-	}
+		path: '/',
+		element: <MainComponent />,
+	},
+	{
+		path: '/:code',
+		element: <MainComponent />,
+	},
 ]);
 
 const AppRouter = () => {
