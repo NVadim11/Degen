@@ -634,7 +634,7 @@ const Footer = ({ user }) => {
 					<div className='popupTasks__wrapper'>
 						<div className='popupTasks__content'>
 							<div className='popupTasks__title'>
-								<h4>TITLE</h4>
+								<h4>complete Tasks and get rewards</h4>
 								<button
 									onClick={tasksCloseToggler}
 									type='button'
@@ -645,13 +645,13 @@ const Footer = ({ user }) => {
 							</div>
 							<div className='popupTasks__coins'>
 								<div className='popupTasks__coinBox'>
-									{user?.wallet_balance > 0 && (
+									{!user?.wallet_balance > 0 && (
 										<>
 											<div className='popupTasks__coinImg' draggable='false'>
 												<img src={deganCoin} alt='Tiger coin' />
 											</div>
 											<div className='popupTasks__coinAmount'>
-												<span id='coinAmount'>{user?.wallet_balance}</span>
+												<span id='coinAmount'>{user?.wallet_balance ?? 123123}</span>
 											</div>
 										</>
 									)}
