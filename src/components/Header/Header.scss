@@ -530,7 +530,7 @@
 }
 
 .highlight {
-	background: #2cb726;
-	border: 2px solid #fff;
-	color: #fff;
+	background: var(--goldColor);
+	border: 2px solid var(--mainColor);
+	color: var(--mainColor);
 }

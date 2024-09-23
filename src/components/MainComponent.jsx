@@ -7,6 +7,7 @@ import { useGetUserByTgIdQuery } from '../services/phpService';
 import DChef from '../img/DChef.webp';
 import DChef_boost from '../img/DChef_boost.webp';
 import DChef_paused from '../img/DChef_paused.webp';
+import Dchef_preload from '../img/Dchef_preload.webp';
 import deganBoost from '../img/deganBoost.webp';
 import deganCoin from '../img/deganCoin.webp';
 import energy from '../img/energy.webp';
@@ -95,6 +96,7 @@ const MainComponent = () => {
 			DChef,
 			DChef_boost,
 			DChef_paused,
+			Dchef_preload,
 			deganBoost,
 			deganCoin,
 			energy,

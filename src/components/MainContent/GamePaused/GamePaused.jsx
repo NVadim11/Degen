@@ -17,6 +17,7 @@ const GamePaused = ({ user, remainingTime }) => {
 	return (
 		<div className='mainContent__gamePaused'>
 			<div className='mainContent__totalCoins'>
+				<h4>Your Balance</h4>
 				<div className='mainContent__totalCoinsBox'>
 					<div className='mainContent__totalCoinsImg' draggable='false'>
 						<img src={deganCoin} draggable='false' />

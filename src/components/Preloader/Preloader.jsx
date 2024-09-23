@@ -1,5 +1,5 @@
 import React from 'react';
-// import preloaderBG from '../../img/background_mobile.webp';
+
 import './Preloader.scss'; // Import the CSS file for styling
 
 const Preloader = ({ loaded }) => {

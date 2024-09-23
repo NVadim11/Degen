@@ -114,7 +114,7 @@
   }
   progress::-webkit-progress-value {
     border-radius: 37px;
-    background: #559767
+    background: var(--redColor)
   }
 }
   &__imageContainer {

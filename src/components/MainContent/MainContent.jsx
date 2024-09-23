@@ -481,6 +481,7 @@ const MainContent = ({ user }) => {
 									) : null}
 									<div className='mainContent__header'>
 										<div className='mainContent__totalCoins'>
+											<h4>Your Balance</h4>
 											<div className='mainContent__totalCoinsBox'>
 												<div className='mainContent__totalCoinsImg' draggable='false'>
 													<img src={boostCoin} draggable='false' />
