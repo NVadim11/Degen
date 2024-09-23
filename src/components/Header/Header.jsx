@@ -221,6 +221,11 @@ const Header = ({ user }) => {
 									<p>Your Bonus</p>
 									<div className='popupInvite__refInfo-coins'>
 										<img src={deganCoin} alt='Degan Coin Icon' />
+										<img src={deganCoin} alt='Degan Coin Icon' />
+										<img src={deganCoin} alt='Degan Coin Icon' />
+										<img src={deganCoin} alt='Degan Coin Icon' />
+										<img src={deganCoin} alt='Degan Coin Icon' />
+										<img src={deganCoin} alt='Degan Coin Icon' />
 									</div>
 									<div className='popupInvite__refInfo-item'>
 										<span>10 %</span>
@@ -235,23 +240,18 @@ const Header = ({ user }) => {
 									</div>
 								)}
 							</div>
-							<div className='popupInvite__header'>
-								<h6>refHowTo</h6>
-							</div>
 							<div className='popupInvite__grid'>
 								<ul className='popupInvite__grid-list'>
 									<li className='popupInvite__list-item'>
-										<Icons.Invite />
 										<div className='popupInvite__list-itemDescr'>
-											<h4>refInvite</h4>
-											<p> refInviteDescr</p>
+											<h4>Invite</h4>
+											<p> Friends via the referral link</p>
 										</div>
 									</li>
 									<li className='popupInvite__list-item'>
-										<Icons.Reward />
 										<div className='popupInvite__list-itemDescr'>
-											<h4>refRewards</h4>
-											<p>refRewardsDescr</p>
+											<h4>Get rewards</h4>
+											<p>Receive 10% of your friends staking</p>
 										</div>
 									</li>
 								</ul>
