@@ -214,11 +214,14 @@ const Header = ({ user }) => {
 								<Icons.Close />
 							</button>
 							<div className='popupInvite__title'>
-								<h4>referralTitle</h4>
+								<h4>invite friends. get rewards together</h4>
 							</div>
 							<div className='popupInvite__refInfo'>
 								<div className='popupInvite__refInfo-box'>
-									<p>refBonus</p>
+									<p>Your Bonus</p>
+									<div className='popupInvite__refInfo-coins'>
+										<img src={deganCoin} alt='Degan Coin Icon' />
+									</div>
 									<div className='popupInvite__refInfo-item'>
 										<span>10 %</span>
 									</div>
