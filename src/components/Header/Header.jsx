@@ -258,13 +258,13 @@ const Header = ({ user }) => {
 							</div>
 							<div className='popupInvite__item-box'>
 								<div className='popupInvite__item-group'>
-									<p>refLink</p>
+									<p>generate your link</p>
 									<p className='popupInvite__input'>
 										{generatedUrl.length ? `${generatedUrl}` : 'refLinkDescr'}
 										<button onClick={copyToClipboard} className='popupInvite__input-btn'>
 											<Icons.Copy />
 										</button>
-										{copied && <span className='copied-message'>refLinkCopy</span>}
+										{copied && <span className='copied-message'>Copied!</span>}
 									</p>
 								</div>
 								<div className='popupInvite__item-group'>
@@ -272,7 +272,7 @@ const Header = ({ user }) => {
 										className='popupInvite__submit'
 										onClick={() => generateUrl(user)}
 									>
-										refLinkBtn
+										generate
 									</button>
 								</div>
 							</div>

@@ -150,6 +150,7 @@
 		right: 15px;
 	}
 	&__title {
+		margin-top: 40px;
 		h4 {
 			font-weight: 400;
 			font-size: 32px;
@@ -360,6 +361,7 @@
 		}
 	}
 	&__submit {
+		margin-top: 5px;
 		display: flex;
 		align-self: center;
 		color: var(--altColor);
