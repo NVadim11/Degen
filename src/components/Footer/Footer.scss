@@ -43,6 +43,7 @@ body::after {
   flex: 1 1 auto;
   width: 100%;
   display: flex;
+  background: var(--mainBG);
 }
 .popupTasks__content {
   display: none;
@@ -63,29 +64,20 @@ body::after {
   }
   &__activities {
     display: flex;
-    // border: 1px solid var(--mainColor);
     border-radius: 18px;
     padding: 15px 10px;
     gap: 15px;
-    // background: #80c27d;
   }
   &__activitiesBtn {
     position: relative;
     button {
-        border: 1px solid #000000;
-        border-radius: 17px;  
-        height: 66px;
+        border-radius: 16px;
+        padding: 0px 16px 18px;
+        font-size: 46px;
+        background: var(--redColor);
+        color: var(--goldColor);
         display: flex;
-        justify-content: center;
-        gap: 10px;
-        align-items: center;
-        background: transparent;
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 100%;
-        letter-spacing: 0.03em;
         text-align: center;
-        width: 174px;
     }
     button:disabled {
       font-weight: 700;
@@ -110,9 +102,7 @@ body::after {
   }
   &__activitiesBtn:first-child {
     button {
-        background: #2cb726;
          color: var(--mainColor);
-         font-size: 22px;
     }
     span {
       z-index: 10;
@@ -153,10 +143,9 @@ body::after {
   }
   &__content {
     position: relative;
-    border: 1px solid #0d9047;
     border-radius: 20px;
     padding: 22px 12px;
-    background: #84c881;
+    background: transparent;
   }
   &__close {
       position: absolute;
@@ -239,10 +228,9 @@ body::after {
     text-align: center;
     align-items: center;
     .claim-button {
-    background: #2cb726;
+    background: var(--goldColor);
     align-items: center;
-    border: 1px solid #0d9047;
-    color: #fff;
+    color: var(--mainColor);
     border-radius: 31px;
     display: flex;
     justify-content: center;
@@ -252,14 +240,14 @@ body::after {
     right: 12px;
     }
     button {
-        border: 1px solid #0d9047;
         border-radius: 10px;
         padding: 12px;
         width: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
-        background: rgba(8, 18, 41, 0.2);
+        font-family: "SFproReg";
+        background: var(--altBG);
         font-weight: 400;
         font-size: 16px;
         line-height: 100%;
@@ -285,12 +273,13 @@ body::after {
     p {
       display: flex;
       align-items: center;
-      background: #2cb726;
-      border: 1px solid #0d9047;
-      color: #fff;
+      background: var(--goldColor);
+      color: var(--mainColor);
+      font-family: "Tomarik";
       border-radius: 31px;
-      padding: 6px 12px;
+      padding: 0px 12px 8px;
       width: 30%;
+      height: 30px;
       justify-content: center;
       position: absolute;
       right: 12px;
@@ -333,8 +322,6 @@ body::after {
     width: 100%;
     align-self: center;
     position: relative;
-    border: 1px solid #0d9047;
-    background: rgba(8, 18, 41, 0.2);
     border-radius: 18px;
     padding: 10px;
     gap: 10px;
@@ -352,18 +339,20 @@ body::after {
       font-size: 16px;
       line-height: 100%;
       letter-spacing: 0.02em;
+      border-radius: 24px;
+      padding: 6px 14px 12px;
       color: var(--mainColor);
-      border: 1px solid #0d9047;
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 10px;
+      background: var(--altBG);
+  
     }
     &.active {
       overflow: hidden;
       button {
+        border-radius: 24px;
+        border: 2px solid var(--mainColor);
         opacity: 1;
-        color: #fff;
-        background: #2cb726;
-        border: 1px solid #0d9047;
+        color: var(--mainColor);
+        background: transparent;
       }
     }
     .footerMain__activitiesHint {
@@ -578,12 +567,12 @@ body::after {
       height: 100%;
     }
     progress::-webkit-progress-bar {
-   background-color: #0D9047;
+   background-color: transparent;
    border-radius: 30px;
    // box-shadow: inset 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
   }
   progress::-webkit-progress-value {
-    background: #2cb726;
+    background: var(--goldColor);
    border-radius: 30px;
    // box-shadow: inset 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
   }
@@ -592,13 +581,12 @@ body::after {
 
 .popupTasks__task {
   img {
-    margin-left: 5px;
+    margin: 0px 0px -7px 5px;
     width: 20px;
     height: 20px;
   }
   .popupTasks__task-rew {
     border: none;
-    background: transparent;
     justify-content: flex-end;
     img {
       margin-right: 0;

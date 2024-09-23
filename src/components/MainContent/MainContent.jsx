@@ -3,16 +3,11 @@ import bcrypt from 'bcryptjs';
 import { AnimatePresence, motion } from 'framer-motion';
 import moment from 'moment-timezone';
 import React, { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from 'react-responsive';
 import energy from '../../img/energy.webp';
-import boostCoin from '../../img/tigranBoost.webp';
-import tigranCash from '../../img/tigranCash-optimize.gif';
-import tigranChill from '../../img/tigranChill-optimize.gif';
-import tigranGold from '../../img/tigranGold-optimize.gif';
-import tigranIdle from '../../img/tigranIdle-optimize.gif';
-import tigranMachine from '../../img/tigranMachine-optimize.gif';
-import tigranTalk from '../../img/tigranTalk-optimize.gif';
+import boostCoin from '../../img/deganBoost.webp';
+import chiefActive from '../../img/DChef.webp';
+import chiefBoost from '../../img/DChef_boost.webp';
 import { useUpdateBalanceMutation } from '../../services/phpService';
 import GamePaused from './GamePaused/GamePaused';
 import './MainContent.scss';
@@ -20,7 +15,7 @@ import './MainContent.scss';
 const MainContent = ({ user }) => {
 	const [currCoins, setCurrCoins] = useState(0);
 	const [currEnergy, setCurrEnergy] = useState(0); //user?.energy
-	const [heroState, setHeroState] = useState(tigranIdle);
+	const [heroState, setHeroState] = useState(chiefActive);
 	const [heroAnimation, setHeroAnimation] = useState(heroState);
 	const coinRef = useRef(null);
 	const [updateBalance] = useUpdateBalanceMutation();
@@ -47,8 +42,6 @@ const MainContent = ({ user }) => {
 
 	const tg = window.Telegram.WebApp;
 	const userId = tg.initDataUnsafe?.user?.id;
-
-	const { t } = useTranslation();
 
 	// aws
 	const secretKey = process.env.REACT_APP_SECRET_KEY;
@@ -270,17 +263,17 @@ const MainContent = ({ user }) => {
 
 	const updateCurrCoins = () => {
 		if (currEnergy >= 0 && currEnergy <= 150) {
-			setHeroState(tigranIdle);
+			setHeroState(chiefActive);
 		} else if (currEnergy >= 151 && currEnergy <= 300) {
-			setHeroState(tigranTalk);
+			setHeroState(chiefActive);
 		} else if (currEnergy >= 301 && currEnergy <= 550 && !resetCoinsCalled) {
 			setResetCoinsCalled(true); // Set the state to true
 			resetCoins(); // Call resetCoins only once
-			setHeroState(tigranCash);
+			setHeroState(chiefActive);
 		} else if (currEnergy >= 551 && currEnergy <= 800) {
-			setHeroState(tigranChill);
+			setHeroState(chiefActive);
 		} else if (currEnergy >= 801 && currEnergy <= 1000) {
-			setHeroState(tigranMachine);
+			setHeroState(chiefActive);
 		}
 		setHeroAnimation(heroState);
 		setIsCoinsChanged(true);
@@ -544,7 +537,7 @@ const MainContent = ({ user }) => {
 															position: 'absolute',
 															color: boostPhase ? '#FFDA17' : '#333333',
 															zIndex: 10,
-															fontFamily: 'Bebas',
+															fontFamily: 'Tomarik',
 															textShadow: '0px 4px 6px rgba(0, 0, 0, 0.6)',
 														}}
 														onAnimationComplete={() => {
@@ -558,33 +551,13 @@ const MainContent = ({ user }) => {
 										))}
 										<div className='mainContent__imageContainer'>
 											<img
-												src={boostPhase ? tigranGold : heroAnimation}
+												src={boostPhase ? chiefBoost : chiefActive}
 												draggable='false'
 												alt='Tiger idle'
 											/>
 										</div>
 									</div>
-									<div className='mainContent__footer'>
-										{!gamePaused && (
-											<div className='mainContent__sessionCoins'>
-												<div className='mainContent__sessionCoins-img' draggable='false'>
-													<img src={boostCoin} draggable='false' />
-												</div>
-												<div className='mainContent__sessionCoins-text'>
-													<span>{t('mainSessionCoins')}</span>
-													<div className='blackLine'></div>
-													<div className='mainContent__sessionCoins-coins'>
-														{currCoins}
-													</div>
-												</div>
-											</div>
-										)}
-										{!gamePaused && (
-											<div className='mainContent__energyHint'>
-												<p>{t('mainEnergyHint')}</p>
-											</div>
-										)}
-									</div>
+									<div className='mainContent__footer'></div>
 								</>
 							)}
 						</>

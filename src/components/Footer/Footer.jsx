@@ -9,8 +9,7 @@ import {
 } from '../../services/phpService';
 
 // import { useTonAddress, TonConnectButton } from '@tonconnect/ui-react';
-import { useTranslation } from 'react-i18next';
-import tigerCoin from '../../img/tigranBoost.webp';
+import deganCoin from '../../img/deganCoin.webp';
 import Modal from '../Modal/Modal';
 import './Footer.scss';
 import Icons from '../Common/IconsComponent.jsx';
@@ -25,8 +24,6 @@ const Footer = ({ user }) => {
 	const [passDaily] = usePassDailyMutation();
 	const [passPartners] = usePassPartnersMutation();
 	const [hasWalletAddress, setHasWalletAddress] = useState(false);
-
-	const { t } = useTranslation();
 	const initLanguage = localStorage.getItem('language');
 	const [currLanguage, setCurrLanguage] = useState(initLanguage);
 
@@ -101,11 +98,11 @@ const Footer = ({ user }) => {
 					id_telegram: user?.id_telegram,
 				}).unwrap();
 				setWalletInputDisabled(true);
-				openModal('green', `${t('modalWalletSubmitSucc')}`, `${t('modalReturn')}`);
+				openModal('green', 'modalWalletSubmitSucc', 'modalReturn');
 				blurPopupTasks();
 				toggleSecond();
 			} catch (e) {
-				openModal('red', `${t('modalWalletSubmitBusy')}`, `${t('modalReturn')}`);
+				openModal('red', 'modalWalletSubmitBusy', 'modalReturn');
 				blurPopupTasks();
 			}
 		}
@@ -120,11 +117,11 @@ const Footer = ({ user }) => {
 					user_id: user?.id,
 				}).unwrap();
 				setWalletInputDisabled(true);
-				openModal('green', `${t('modalWalletChangeSucc')}`, `${t('modalReturn')}`);
+				openModal('green', 'modalWalletChangeSucc', 'modalReturn');
 				blurPopupTasks();
 				toggleSecond();
 			} catch (e) {
-				openModal('red', `${t('modalWalletChangeBusy')}`, `${t('modalReturn')}`);
+				openModal('red', 'modalWalletChangeBusy', 'modalReturn');
 				blurPopupTasks();
 			}
 		}
@@ -285,14 +282,14 @@ const Footer = ({ user }) => {
 			if (res.success) {
 				// Update quest status to completed (status: 1)
 				updateDailyQStatus(taskId, 1);
-				openModal('green', `${t('modalSuccess')}`, `${t('modalReturn')}`);
+				openModal('green', 'modalSuccess', 'modalReturn');
 				blurPopupTasks();
 			} else {
-				openModal('red', `${t('modalError')}`, `${t('modalReturn')}`);
+				openModal('red', 'modalError', 'modalReturn');
 				blurPopupTasks();
 			}
 		} catch (e) {
-			openModal('red', `${t('modalError')}`, `${t('modalReturn')}`);
+			openModal('red', 'modalError', 'modalReturn');
 			blurPopupTasks();
 		}
 	};
@@ -401,11 +398,11 @@ const Footer = ({ user }) => {
 			setPartnerTaskStatus((prevStatus) =>
 				prevStatus.map((task) => (task.id === taskId ? { ...task, status: 1 } : task))
 			);
-			openModal('green', `${t('modalSuccess')}`, `${t('modalReturn')}`);
+			openModal('green', 'modalSuccess', 'modalReturn');
 			blurPopupTasks();
 		} catch (e) {
 			console.log(`Error completing task ${taskId}`, e);
-			openModal('red', `${t('modalError')}`, `${t('modalReturn')}`);
+			openModal('red', 'modalError', 'modalReturn');
 			blurPopupTasks();
 		}
 	};
@@ -473,16 +470,16 @@ const Footer = ({ user }) => {
 			const res = { success: true };
 			if (res.success) {
 				setTwitterTaskStatus(1);
-				openModal('green', `${t('modalSuccess')}`, `${t('modalReturn')}`);
+				openModal('green', 'modalSuccess', 'modalReturn');
 				blurPopupTasks();
 			} else {
 				console.log('Error completing task');
-				openModal('red', `${t('modalError')}`, `${t('modalReturn')}`);
+				openModal('red', 'modalError', 'modalReturn');
 				blurPopupTasks();
 			}
 		} catch (e) {
 			console.log(e);
-			openModal('red', `${t('modalError')}`, `${t('modalReturn')}`);
+			openModal('red', 'modalError', 'modalReturn');
 			blurPopupTasks();
 		}
 	};
@@ -497,16 +494,16 @@ const Footer = ({ user }) => {
 			const res = { success: true };
 			if (res.success) {
 				setChatTaskStatus(1);
-				openModal('green', `${t('modalSuccess')}`, `${t('modalReturn')}`);
+				openModal('green', 'modalSuccess', 'modalReturn');
 				blurPopupTasks();
 			} else {
 				console.log('Error completing task');
-				openModal('red', `${t('modalError')}`, `${t('modalReturn')}`);
+				openModal('red', 'modalError', 'modalReturn');
 				blurPopupTasks();
 			}
 		} catch (e) {
 			console.log(e);
-			openModal('red', `${t('modalError')}`, `${t('modalReturn')}`);
+			openModal('red', 'modalError', 'modalReturn');
 			blurPopupTasks();
 		}
 	};
@@ -521,15 +518,15 @@ const Footer = ({ user }) => {
 			const res = { success: true };
 			if (res.success) {
 				setСhannelTaskStatus(1);
-				openModal('green', `${t('modalSuccess')}`, `${t('modalReturn')}`);
+				openModal('green', 'modalSuccess', 'modalReturn');
 				blurPopupTasks();
 			} else {
-				openModal('red', `${t('modalError')}`, `${t('modalReturn')}`);
+				openModal('red', 'modalError', 'modalReturn');
 				blurPopupTasks();
 			}
 		} catch (e) {
 			console.log(e);
-			openModal('red', `${t('modalError')}`, `${t('modalReturn')}`);
+			openModal('red', 'modalError', 'modalReturn');
 			blurPopupTasks();
 		}
 	};
@@ -544,16 +541,16 @@ const Footer = ({ user }) => {
 			const res = { success: true };
 			if (res.success) {
 				setWebsiteTaskStatus(1);
-				openModal('green', `${t('modalSuccess')}`, `${t('modalReturn')}`);
+				openModal('green', 'modalSuccess', 'modalReturn');
 				blurPopupTasks();
 			} else {
 				console.log('Error completing task');
-				openModal('red', `${t('modalError')}`, `${t('modalReturn')}`);
+				openModal('red', 'modalError', 'modalReturn');
 				blurPopupTasks();
 			}
 		} catch (e) {
 			console.log(e);
-			openModal('red', `${t('modalError')}`, `${t('modalReturn')}`);
+			openModal('red', 'modalError', 'modalReturn');
 			blurPopupTasks();
 		}
 	};
@@ -623,20 +620,9 @@ const Footer = ({ user }) => {
 					<div className='footerMain__activities'>
 						<div className='footerMain__activitiesBtn'>
 							<button onClick={tasksBtn}>
-								<Icons.taskBtn />
-								<span>{t('tasksTabTitle')}</span>
+								<span>TASKS</span>
 							</button>
 						</div>
-						{/* <div className='footerMain__activitiesBtn'>
-							<button style={{ cursor: 'not-allowed' }} disabled>
-								<span>Coming soon</span>
-							</button>
-						</div>
-						<div className='footerMain__activitiesBtn'>
-							<button style={{ cursor: 'not-allowed' }} disabled>
-								<span>Coming soon</span>
-							</button>
-						</div> */}
 					</div>
 				</div>
 			</footer>
@@ -645,7 +631,7 @@ const Footer = ({ user }) => {
 					<div className='popupTasks__wrapper'>
 						<div className='popupTasks__content'>
 							<div className='popupTasks__title'>
-								<h4>{t('tasksTitle')}</h4>
+								<h4>TITLE</h4>
 								<button
 									onClick={tasksCloseToggler}
 									type='button'
@@ -659,7 +645,7 @@ const Footer = ({ user }) => {
 									{user?.wallet_balance > 0 && (
 										<>
 											<div className='popupTasks__coinImg' draggable='false'>
-												<img src={tigerCoin} alt='Tiger coin' />
+												<img src={deganCoin} alt='Tiger coin' />
 											</div>
 											<div className='popupTasks__coinAmount'>
 												<span id='coinAmount'>{user?.wallet_balance}</span>
@@ -673,20 +659,20 @@ const Footer = ({ user }) => {
 									className={`popupTasks__tabs-btn ${activeTab === 0 ? 'active' : ''}`}
 									onClick={() => handleTabClick(0)}
 								>
-									<button>{t('tasksTabSocial')}</button>
+									<button>SOCIAL</button>
 								</div>
 								<div
 									className={`popupTasks__tabs-btn ${activeTab === 1 ? 'active' : ''}`}
 									onClick={() => handleTabClick(1)}
 								>
-									<button>{t('tasksTabDaily')}</button>
+									<button>DAILY</button>
 									{/* <div className='footerMain__activitiesHint'>Coming Soon</div> */}
 								</div>
 								<div
 									className={`popupTasks__tabs-btn ${activeTab === 2 ? 'active' : ''}`}
 									onClick={() => handleTabClick(2)}
 								>
-									<button>{t('tasksTabPartners')}</button>
+									<button>PARTNERS</button>
 								</div>
 							</div>
 							<div className={`popupTasks__tasks ${activeTab === 0 ? 'active' : ''}`}>
@@ -699,23 +685,23 @@ const Footer = ({ user }) => {
 									{!user?.wallet_address ? (
 										<p>
 											20000
-											<img src={tigerCoin} alt='Tiger coin' />
+											<img src={deganCoin} alt='Tiger coin' />
 										</p>
 									) : (
-										<p>{t('activityDone')}</p>
+										<p>activityDone</p>
 									)}
 								</div> */}
 								{/* simple wallet */}
-								<div className='popupTasks__walletTask'>
+								{/* <div className='popupTasks__walletTask'>
 									{inputFirst && (
 										<>
 											<div className='popupTasks__walletTask-title'>
-												<span>{t('walletTaskDescr')}</span>
+												<span>DESCR</span>
 											</div>
 											<div className='popupTasks__walletTask-input'>
 												<input
 													type='text'
-													placeholder={t('walletTaskPlaceholder')}
+													placeholder='PLACEHOLDER'
 													style={{
 														background: 'transparent',
 														color: '#fff',
@@ -738,7 +724,7 @@ const Footer = ({ user }) => {
 									{inputSecond && (
 										<>
 											<div className='popupTasks__walletTask-title'>
-												<span>{t('walletTaskTitle')}</span>
+												<span>TITLE</span>
 											</div>
 											<div className='popupTasks__walletTask-input'>
 												<input
@@ -773,32 +759,28 @@ const Footer = ({ user }) => {
 											''
 										)}
 									</div>
-								</div>
+								</div> */}
 								<div className='popupTasks__task'>
 									<button onClick={twitterClick} disabled={twitterTaskStatus === 1}>
 										<span>
 											{twitterTaskStatus === 0
-												? `${t('followTwitter')}`
+												? 'followTwitter'
 												: twitterTaskStatus === 2 || twitterTaskStatus === 3
-												? `${t('activityCheck')}`
-												: `${t('followTwitter')}`}
+												? 'activityCheck'
+												: 'followTwitter'}
 										</span>
 										{twitterTaskStatus === 0 && (
 											<p>
 												10000
-												<img src={tigerCoin} alt='Tiger coin' />
+												<img src={deganCoin} alt='Tiger coin' />
 											</p>
 										)}
-										{twitterTaskStatus === 2 && (
-											<p>
-												{timerTwitter} {t('taskTimer')}
-											</p>
-										)}
-										{twitterTaskStatus === 1 && <p>{t('activityDone')}</p>}
+										{twitterTaskStatus === 2 && <p>{timerTwitter} taskTimer</p>}
+										{twitterTaskStatus === 1 && <p>activityDone</p>}
 									</button>
 									{twitterTaskStatus === 3 && (
 										<div onClick={claimTwitter} className='claim-button'>
-											{t('activityClaim')}
+											activityClaim
 										</div>
 									)}
 								</div>
@@ -806,27 +788,23 @@ const Footer = ({ user }) => {
 									<button onClick={tgClickChat} disabled={chatTaskStatus === 1}>
 										<span>
 											{chatTaskStatus === 0
-												? `${t('followTGChat')}`
+												? 'followTGChat'
 												: chatTaskStatus === 2 || chatTaskStatus === 3
-												? `${t('activityCheck')}`
-												: `${t('followTGChat')}`}
+												? 'activityCheck'
+												: 'followTGChat'}
 										</span>
 										{chatTaskStatus === 0 && (
 											<p>
 												10000
-												<img src={tigerCoin} alt='Tiger coin' />
+												<img src={deganCoin} alt='Tiger coin' />
 											</p>
 										)}
-										{chatTaskStatus === 2 && (
-											<p>
-												{timerChat} {t('taskTimer')}
-											</p>
-										)}
-										{chatTaskStatus === 1 && <p>{t('activityDone')}</p>}
+										{chatTaskStatus === 2 && <p>{timerChat} taskTimer</p>}
+										{chatTaskStatus === 1 && <p>activityDone</p>}
 									</button>
 									{chatTaskStatus === 3 && (
 										<div onClick={claimChat} className='claim-button'>
-											{t('activityClaim')}
+											activityClaim
 										</div>
 									)}
 								</div>
@@ -834,27 +812,23 @@ const Footer = ({ user }) => {
 									<button onClick={tgClickChannel} disabled={channelTaskStatus === 1}>
 										<span>
 											{channelTaskStatus === 0
-												? `${t('followTGChannel')}`
+												? 'followTGChannel'
 												: channelTaskStatus === 2 || channelTaskStatus === 3
-												? `${t('activityCheck')}`
-												: `${t('followTGChannel')}`}
+												? 'activityCheck'
+												: 'followTGChannel'}
 										</span>
 										{channelTaskStatus === 0 && (
 											<p>
 												10000
-												<img src={tigerCoin} alt='Tiger coin' />
+												<img src={deganCoin} alt='Tiger coin' />
 											</p>
 										)}
-										{channelTaskStatus === 2 && (
-											<p>
-												{timerChannel} {t('taskTimer')}
-											</p>
-										)}
-										{channelTaskStatus === 1 && <p>{t('activityDone')}</p>}
+										{channelTaskStatus === 2 && <p>{timerChannel} taskTimer</p>}
+										{channelTaskStatus === 1 && <p>activityDone</p>}
 									</button>
 									{channelTaskStatus === 3 && (
 										<div onClick={claimChannel} className='claim-button'>
-											{t('activityClaim')}
+											activityClaim
 										</div>
 									)}
 								</div>
@@ -862,27 +836,23 @@ const Footer = ({ user }) => {
 									<button onClick={websiteClick} disabled={websiteTaskStatus === 1}>
 										<span>
 											{websiteTaskStatus === 0
-												? `${t('visitWebsite')}`
+												? 'visitWebsite'
 												: websiteTaskStatus === 2 || websiteTaskStatus === 3
-												? `${t('activityCheck')}`
-												: `${t('visitWebsite')}`}
+												? 'activityCheck'
+												: 'visitWebsite'}
 										</span>
 										{websiteTaskStatus === 0 && (
 											<p>
 												3000
-												<img src={tigerCoin} alt='Tiger coin' />
+												<img src={deganCoin} alt='Tiger coin' />
 											</p>
 										)}
-										{websiteTaskStatus === 2 && (
-											<p>
-												{timerWebsite} {t('taskTimer')}
-											</p>
-										)}
-										{websiteTaskStatus === 1 && <p>{t('activityDone')}</p>}
+										{websiteTaskStatus === 2 && <p>{timerWebsite} taskTimer</p>}
+										{websiteTaskStatus === 1 && <p>activityDone</p>}
 									</button>
 									{websiteTaskStatus === 3 && (
 										<div onClick={claimWebsite} className='claim-button'>
-											{t('activityClaim')}
+											activityClaim
 										</div>
 									)}
 								</div>
@@ -921,11 +891,11 @@ const Footer = ({ user }) => {
 																		width: '65%',
 																	}}
 																>
-																	{t('activityClaim')}
+																	activityClaim
 																</span>
 																{quest.reward}{' '}
 																<div className='rewardCoin'>
-																	<img src={tigerCoin} alt='Tiger coin' />
+																	<img src={deganCoin} alt='Tiger coin' />
 																</div>
 															</p>
 														) : (
@@ -936,7 +906,7 @@ const Footer = ({ user }) => {
 																	right: '35px',
 																}}
 															>
-																{t('activityDone')}
+																activityDone
 															</span>
 														)}
 													</button>
@@ -958,7 +928,7 @@ const Footer = ({ user }) => {
 															<p className='popupTasks__task-rew'>
 																{quest.reward}{' '}
 																<div className='rewardCoin'>
-																	<img src={tigerCoin} alt='Tiger coin' />
+																	<img src={deganCoin} alt='Tiger coin' />
 																</div>
 															</p>
 														) : (
@@ -969,7 +939,7 @@ const Footer = ({ user }) => {
 																	right: '35px',
 																}}
 															>
-																{t('activityDone')}
+																activityDone
 															</span>
 														)}
 													</button>
@@ -1013,7 +983,7 @@ const Footer = ({ user }) => {
 																? quest.partners_quest.name_ru
 																: quest.partners_quest.name
 															: quest.status === 2 || quest.status === 3
-															? `${t('activityCheck')}`
+															? 'activityCheck'
 															: currLanguage === 'ru'
 															? quest.partners_quest.name_ru
 															: quest.partners_quest.name}
@@ -1022,18 +992,14 @@ const Footer = ({ user }) => {
 														<p className='popupTasks__task-rew'>
 															{quest.reward}
 															<div className='rewardCoin'>
-																<img src={tigerCoin} alt='Tiger coin' />
+																<img src={deganCoin} alt='Tiger coin' />
 															</div>
 														</p>
 													)}
-													{quest.status === 2 && (
-														<p>
-															{timers[quest.id]} {t('taskTimer')}
-														</p>
-													)}
+													{quest.status === 2 && <p>{timers[quest.id]} taskTimer</p>}
 													{quest.status === 1 && (
 														<p style={{ border: 'none', background: 'transparent' }}>
-															{t('activityDone')}
+															activityDone
 														</p>
 													)}
 												</button>
@@ -1044,7 +1010,7 @@ const Footer = ({ user }) => {
 														}}
 														className='claim-button'
 													>
-														{t('activityClaim')}
+														activityClaim
 													</div>
 												)}
 											</div>

@@ -1,19 +1,14 @@
 import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import './DashboardModal.scss';
 
 export default function DashboardModal({ dashboardData }) {
-	const { t } = useTranslation();
-
 	return (
 		<>
 			<div className='popupDashboard__table'>
 				<div className='popupDashboard__table-header'>
-					<span>{t('dashboardLvl')}</span>
-					<span>{t('dashboardUsers')}</span>
-					{/* <span>{t('dashboardActiveUsers')}</span> */}
-					<span>{t('dashboardBonus')}</span>
-					{/* <span>{t('dashboardBonusAnn')}</span> */}
+					<span>dashboardLvl</span>
+					<span>dashboardUsers</span>
+					<span>dashboardBonus</span>
 				</div>
 				<ul className='popupDashboard__table-content'>
 					{dashboardData.data.map((item) => (

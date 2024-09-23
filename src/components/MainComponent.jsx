@@ -4,23 +4,12 @@ import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useGetUserByTgIdQuery } from '../services/phpService';
 
-import avatar from '../img/avatar.webp';
-import back1 from '../img/back1.webp';
-import back2 from '../img/back2.webp';
-import back3 from '../img/back3.webp';
-import bgMob from '../img/background_mobile.webp';
+import DChef from '../img/DChef.webp';
+import DChef_boost from '../img/DChef_boost.webp';
+import DChef_paused from '../img/DChef_paused.webp';
+import deganBoost from '../img/deganBoost.webp';
+import deganCoin from '../img/deganCoin.webp';
 import energy from '../img/energy.webp';
-import tiger1 from '../img/tiger1.webp';
-import tiger_ava from '../img/tiger_ava.webp';
-import boostCoin from '../img/tigranBoost.webp';
-import tigranCash from '../img/tigranCash-optimize.gif';
-import tigranChill from '../img/tigranChill-optimize.gif';
-import tigranGold from '../img/tigranGold-optimize.gif';
-import tigranIdle from '../img/tigranIdle-optimize.gif';
-import tigranMachine from '../img/tigranMachine-optimize.gif';
-import tigranQR from '../img/tigranQR.webp';
-import tigranTalk from '../img/tigranTalk-optimize.gif';
-import tigranCircle from '../img/tigran_circle.webp';
 
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
@@ -103,23 +92,12 @@ const MainComponent = () => {
 		};
 
 		const imageSources = [
-			avatar,
-			back1,
-			back2,
-			back3,
-			bgMob,
+			DChef,
+			DChef_boost,
+			DChef_paused,
+			deganBoost,
+			deganCoin,
 			energy,
-			tiger_ava,
-			tiger1,
-			tigranCircle,
-			tigranCash,
-			tigranChill,
-			tigranGold,
-			tigranQR,
-			boostCoin,
-			tigranIdle,
-			tigranMachine,
-			tigranTalk,
 		];
 
 		const loadImages = async () => {
@@ -173,14 +151,14 @@ const MainComponent = () => {
 
 	return (
 		<>
-			<Preloader loaded={preloaderLoaded} />
-			{preloaderLoaded && (
+			<Preloader loaded={!preloaderLoaded} />
+			{!preloaderLoaded && (
 				<>
 					{!isMobileDevice ? (
 						<TelegramLinking />
 					) : (
 						<>
-							{user ? (
+							{!user ? (
 								<>
 									<Header user={user} />
 									<main id='main' className='main'>

@@ -1,10 +1,14 @@
 :root {
-  --text: "Oswald";
-  --mainColor: #1c2520;
+  --text: "Tomarik";
+  --SFproReg: "SFproReg";
+  --SFproSemi: "SFproSemi";
+  --mainColor: #fff;
   --altColor: #fff;
   --minWidth: 390px;
-  --mainBG: rgba(157, 241, 155, 1);
-  --altBG: #80c27d;
+  --mainBG: #4dafce;
+  --altBG: #3C8CA5;
+  --redColor: #A72122;
+  --goldColor: #E1AB3B;
   }
   
   *,
@@ -22,7 +26,6 @@
   }
 
   body {
-    background-image: url("img/cover.webp");
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
@@ -63,10 +66,28 @@
   
   
   @font-face {
-    font-family: "Oswald";
+    font-family: "Tomarik";
     font-display: swap;
-    src: local("Oswald"),
-      url("./fonts/Oswald-Regular.ttf") format("truetype");
+    src: local("Tomarik"),
+      url("./fonts/Tomarik-Brush.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "SFproReg";
+    font-display: swap;
+    src: local("SFproReg"),
+      url("./fonts/SFProText-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "SFproSemi";
+    font-display: swap;
+    src: local("SFproSemi"),
+      url("./fonts/SFProText-Semibold.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
   }

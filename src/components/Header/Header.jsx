@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import face from '../../img/tigran_circle.webp';
+import face from '../../img/deganCoin.webp';
 import {
 	useGetLeaderboardMutation,
 	useGetDashboardMutation,
@@ -37,44 +36,13 @@ const Header = ({ user }) => {
 
 	const tg = window.Telegram.WebApp;
 
-	// Localisation
-	const { t, i18n } = useTranslation();
-
-	// Retrieve the initial language from localStorage or default to 'en'
-	const initLanguage = localStorage.getItem('language') || 'ru';
-	const [language, setLanguage] = useState(initLanguage);
-
-	useEffect(() => {
-		i18n.changeLanguage(language);
-	}, [language, i18n]);
-
-	const changeLanguage = (language) => {
-		i18n.changeLanguage(language);
-		localStorage.setItem('language', language); // Save to localStorage
-	};
-
-	const toggleLanguage = () => {
-		const newLanguage = language === 'ru' ? 'en' : 'ru';
-		setLanguage(newLanguage);
-		changeLanguage(newLanguage);
-	};
-
 	const toggleMenu = () => {
 		setIsShown((prev) => !prev);
 	};
 
-	useEffect(() => {
-		// Update i18n language when user.language_code changes
-		changeLanguage(language);
-	}, [language]);
-
 	const handleTGUrl = () => {
 		let url;
-		if (initLanguage === 'ru') {
-			url = 'https://t.me/TigerCash_ru';
-		} else if (initLanguage === 'en') {
-			url = 'https://t.me/TigerCashChannel';
-		}
+		url = 'https://t.me/TigerCashChannel';
 		window.open(url, '_blank');
 	};
 
@@ -195,9 +163,6 @@ const Header = ({ user }) => {
 	return (
 		<>
 			<header id='header' className='header'>
-				<div className='header__logo'>
-					<img src={face} alt='Tiger-logo' />
-				</div>
 				<div className='header__btn-group'>
 					<div className='header__social-links'>
 						<a className='header__social-link' onClick={handleTGUrl}>
@@ -213,13 +178,13 @@ const Header = ({ user }) => {
 						</a>
 					</div>
 					<button className='header__menuBtn' ref={containerRef} onClick={toggleMenu}>
-						{t('menuBtn')}
+						menu
 						<Icons.menuBtn />
 					</button>
 					{isShown && (
 						<div className='header__menu' ref={menuRef}>
 							<a className='header__menu-links' onClick={getLeaderboardBtn}>
-								{t('menuLeaderboard')}
+								Leaderboard
 								<Icons.Leaderboard />
 							</a>
 							<a
@@ -227,7 +192,7 @@ const Header = ({ user }) => {
 								onClick={inviteFriendsBtn}
 								rel='noopener noreferrer'
 							>
-								{t('menuReferral')}
+								Referral
 								<Icons.Referral />
 							</a>
 							<a
@@ -235,55 +200,9 @@ const Header = ({ user }) => {
 								onClick={getDashboardBtn}
 								rel='noopener noreferrer'
 							>
-								{t('menuDashboard')}
+								Dashboard
 								<Icons.Dashboard />
 							</a>
-							<div className='header__menu-toggle'>
-								<FormControlLabel
-									label={
-										<span
-											style={{
-												fontSize: '24px',
-												fontWeight: '400',
-												fontFamily: 'Oswald',
-												textTransform: 'uppercase',
-											}}
-										>
-											{language === 'ru' ? 'Switch to English' : 'Врубить Русский'}
-										</span>
-									}
-									labelPlacement='start'
-									sx={{
-										display: 'flex',
-										alignItems: 'center',
-										justifyContent: 'space-between',
-										width: '100%',
-										border: '1px solid #172610',
-										borderRadius: '10px',
-										padding: '16px 16px 16px 24px',
-										height: '56px',
-										fontWeight: '400',
-										lineHeight: '100%',
-										letterSpacing: '0.02em',
-										color: 'var(--mainColor)',
-										margin: '0',
-									}}
-									control={
-										<Switch
-											checked={language !== 'ru'}
-											onChange={toggleLanguage}
-											sx={{
-												'& .MuiSwitch-switchBase.Mui-checked': {
-													color: 'green',
-												},
-												'& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-													backgroundColor: 'green',
-												},
-											}}
-										/>
-									}
-								/>
-							</div>
 						</div>
 					)}
 				</div>

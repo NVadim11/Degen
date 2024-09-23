@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import tigranChill from '../../../img/tigranChill-optimize.gif';
-import tigranCircle from '../../../img/tigran_circle.webp';
+import deganTired from '../../../img/DChef_paused.webp';
+import deganCoin from '../../../img/deganCoin.webp';
 
 const GamePaused = ({ user, remainingTime }) => {
 	const [timeRemaining, setTimeRemaining] = useState(remainingTime);
-	const { t } = useTranslation();
 
 	useEffect(() => {
 		setTimeRemaining(remainingTime);
@@ -21,7 +19,7 @@ const GamePaused = ({ user, remainingTime }) => {
 			<div className='mainContent__totalCoins'>
 				<div className='mainContent__totalCoinsBox'>
 					<div className='mainContent__totalCoinsImg' draggable='false'>
-						<img src={tigranCircle} draggable='false' />
+						<img src={deganCoin} draggable='false' />
 					</div>
 					{user !== null && (
 						<div className='mainContent__totalCoinsAmount'>
@@ -32,15 +30,15 @@ const GamePaused = ({ user, remainingTime }) => {
 			</div>
 			{timeRemaining ? (
 				<h4 style={{ marginBottom: '10px', marginTop: '20px' }}>
-					{t('gamePauseTitle')} {formatTime(timeRemaining)} {t('gamePauseMinutes')}
+					gamePauseTitle {formatTime(timeRemaining)} gamePauseMinutes
 				</h4>
 			) : (
-				<h4 style={{ marginBottom: '10px', marginTop: '20px' }}>{t('gamePauseCalc')}</h4>
+				<h4 style={{ marginBottom: '10px', marginTop: '20px' }}>gamePauseCalc</h4>
 			)}
 			<div className='mainContent__imageContainer'>
-				<img src={tigranChill} draggable='false' alt='Tiger Chill' />
+				<img src={deganTired} draggable='false' alt='Tiger Chill' />
 			</div>
-			<p style={{ marginTop: '20px' }}>{t('gamePauseDescr')}</p>
+			<p style={{ marginTop: '20px' }}>gamePauseDescr</p>
 		</div>
 	);
 };
