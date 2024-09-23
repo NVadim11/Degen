@@ -163,21 +163,7 @@ const Header = ({ user }) => {
 		<>
 			<header id='header' className='header'>
 				<div className='header__btn-group'>
-					<div className='header__social-links'>
-						<a className='header__social-link' onClick={handleTGUrl}>
-							<Icons.TG />
-						</a>
-						<a
-							className='header__social-link'
-							onClick={() => {
-								window.open('https://x.com/tema_cash', '_blank');
-							}}
-						>
-							<Icons.X />
-						</a>
-					</div>
 					<button className='header__menuBtn' ref={containerRef} onClick={toggleMenu}>
-						menu
 						<Icons.menuBtn />
 					</button>
 					{isShown && (
@@ -193,14 +179,6 @@ const Header = ({ user }) => {
 							>
 								Referral
 								<Icons.Referral />
-							</a>
-							<a
-								className='header__menu-links'
-								onClick={getDashboardBtn}
-								rel='noopener noreferrer'
-							>
-								Dashboard
-								<Icons.Dashboard />
 							</a>
 						</div>
 					)}
