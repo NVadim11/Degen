@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import face from '../../img/deganCoin.webp';
+import deganCoin from '../../img/deganCoin.webp';
 import {
 	useGetLeaderboardMutation,
 	useGetDashboardMutation,
 } from '../../services/phpService';
-import { Switch, FormControlLabel } from '@mui/material';
 import './Header.scss';
 import DashboardModal from './DashboardModal/DashboardModal.jsx';
 import Icons from '../Common/IconsComponent.jsx';
@@ -215,18 +214,18 @@ const Header = ({ user }) => {
 								<Icons.Close />
 							</button>
 							<div className='popupInvite__title'>
-								<h4>{t('referralTitle')}</h4>
+								<h4>referralTitle</h4>
 							</div>
 							<div className='popupInvite__refInfo'>
 								<div className='popupInvite__refInfo-box'>
-									<p>{t('refBonus')}</p>
+									<p>refBonus</p>
 									<div className='popupInvite__refInfo-item'>
 										<span>10 %</span>
 									</div>
 								</div>
 								{totalReferrals >= 0 && (
 									<div className='popupInvite__refInfo-box'>
-										<p> {t('refCount')}</p>
+										<p> refCount</p>
 										<div className='popupInvite__refInfo-item'>
 											<span>{totalReferrals}</span>
 										</div>
@@ -234,35 +233,35 @@ const Header = ({ user }) => {
 								)}
 							</div>
 							<div className='popupInvite__header'>
-								<h6> {t('refHowTo')}</h6>
+								<h6>refHowTo</h6>
 							</div>
 							<div className='popupInvite__grid'>
 								<ul className='popupInvite__grid-list'>
 									<li className='popupInvite__list-item'>
 										<Icons.Invite />
 										<div className='popupInvite__list-itemDescr'>
-											<h4>{t('refInvite')}</h4>
-											<p> {t('refInviteDescr')}</p>
+											<h4>refInvite</h4>
+											<p> refInviteDescr</p>
 										</div>
 									</li>
 									<li className='popupInvite__list-item'>
 										<Icons.Reward />
 										<div className='popupInvite__list-itemDescr'>
-											<h4>{t('refRewards')}</h4>
-											<p>{t('refRewardsDescr')}</p>
+											<h4>refRewards</h4>
+											<p>refRewardsDescr</p>
 										</div>
 									</li>
 								</ul>
 							</div>
 							<div className='popupInvite__item-box'>
 								<div className='popupInvite__item-group'>
-									<p>{t('refLink')}</p>
+									<p>refLink</p>
 									<p className='popupInvite__input'>
-										{generatedUrl.length ? `${generatedUrl}` : `${t('refLinkDescr')}`}
+										{generatedUrl.length ? `${generatedUrl}` : 'refLinkDescr'}
 										<button onClick={copyToClipboard} className='popupInvite__input-btn'>
 											<Icons.Copy />
 										</button>
-										{copied && <span className='copied-message'>{t('refLinkCopy')}</span>}
+										{copied && <span className='copied-message'>refLinkCopy</span>}
 									</p>
 								</div>
 								<div className='popupInvite__item-group'>
@@ -270,7 +269,7 @@ const Header = ({ user }) => {
 										className='popupInvite__submit'
 										onClick={() => generateUrl(user)}
 									>
-										{t('refLinkBtn')}
+										refLinkBtn
 									</button>
 								</div>
 							</div>
@@ -283,43 +282,97 @@ const Header = ({ user }) => {
 					<div className='popupLeaderboard__wrapper'>
 						<div className='popupLeaderboard__content'>
 							<div className='popupLeaderboard__title'>
-								<Icons.Crown />
-								<h4> {t('leaderboardTitle')}</h4>
+								<h4>leaderboard</h4>
 								<button
 									onClick={сloseToggler}
 									type='button'
-									className='popupInvite__close'
+									className='popupLeaderboard__close'
 								>
 									<Icons.Close />
 								</button>
 							</div>
 							<div className='popupLeaderboard__playerList'>
 								<ul className='popupLeaderboard__table'>
-									{leaderboardData.map((player, index) => {
+									{/* {leaderboardData.map((player, index) => {
 										const isCurrentUser = player.username === user.username;
-										const isTopThree = index < 2;
-										return (
-											<li
-												className={`popupLeaderboard__tableItem ${
-													isCurrentUser && !isTopThree ? 'highlight' : ''
-												}`}
-												key={index}
-											>
-												<div className='popupLeaderboard__itemData'>
-													<div className='popupLeaderboard__id'>
-														<Icons.playerID />
-														<span>{player.position}</span>
-													</div>
-													<div className='popupLeaderboard__playerName'>
-														<span>{player.username ?? 'anonymous'}</span>
-													</div>
-													<div className='popupLeaderboard__coins'>
-														<span>{player.wallet_balance}</span>
-													</div>
-												</div>
-											</li>
-										);
-									})}
+										const isTopThree = index < 2; */}
+									{/* return ( */}
+									{/* <li
+										className={`popupLeaderboard__tableItem ${
+											isCurrentUser && !isTopThree ? 'highlight' : ''
+										}`}
+										key={index}
+									> */}
+									<li className='popupLeaderboard__tableItem'>
+										<div className='popupLeaderboard__itemData'>
+											<div className='popupLeaderboard__id'>
+												<Icons.playerID />
+												{/* <span>{player.position ?? 123123}</span> */}
+												<span>1</span>
+											</div>
+											<div className='popupLeaderboard__playerName'>
+												{/* <span>{player.username ?? 'anonymous'}</span> */}
+												<span>anonymous</span>
+											</div>
+											<div className='popupLeaderboard__coins'>
+												{/* <span>{player.wallet_balance ?? 123123}</span> */}
+												<span>123123</span> <img src={deganCoin} alt='Degan Coin Icon' />
+											</div>
+										</div>
+									</li>
+									<li className='popupLeaderboard__tableItem'>
+										<div className='popupLeaderboard__itemData'>
+											<div className='popupLeaderboard__id'>
+												<Icons.playerID />
+												{/* <span>{player.position ?? 123123}</span> */}
+												<span>2</span>
+											</div>
+											<div className='popupLeaderboard__playerName'>
+												{/* <span>{player.username ?? 'anonymous'}</span> */}
+												<span>anonymous</span>
+											</div>
+											<div className='popupLeaderboard__coins'>
+												{/* <span>{player.wallet_balance ?? 123123}</span> */}
+												<span>123123</span> <img src={deganCoin} alt='Degan Coin Icon' />
+											</div>
+										</div>
+									</li>
+									<li className='popupLeaderboard__tableItem'>
+										<div className='popupLeaderboard__itemData'>
+											<div className='popupLeaderboard__id'>
+												<Icons.playerID />
+												{/* <span>{player.position ?? 123123}</span> */}
+												<span>3</span>
+											</div>
+											<div className='popupLeaderboard__playerName'>
+												{/* <span>{player.username ?? 'anonymous'}</span> */}
+												<span>anonymous</span>
+											</div>
+											<div className='popupLeaderboard__coins'>
+												{/* <span>{player.wallet_balance ?? 123123}</span> */}
+												<span>123123</span> <img src={deganCoin} alt='Degan Coin Icon' />
+											</div>
+										</div>
+									</li>
+									<li className='popupLeaderboard__tableItem'>
+										<div className='popupLeaderboard__itemData'>
+											<div className='popupLeaderboard__id'>
+												<Icons.playerID />
+												{/* <span>{player.position ?? 123123}</span> */}
+												<span>4</span>
+											</div>
+											<div className='popupLeaderboard__playerName'>
+												{/* <span>{player.username ?? 'anonymous'}</span> */}
+												<span>anonymous</span>
+											</div>
+											<div className='popupLeaderboard__coins'>
+												{/* <span>{player.wallet_balance ?? 123123}</span> */}
+												<span>123123</span> <img src={deganCoin} alt='Degan Coin Icon' />
+											</div>
+										</div>
+									</li>
+									{/* ); */}
+									{/* })} */}
 								</ul>
 							</div>
 						</div>
@@ -338,7 +391,7 @@ const Header = ({ user }) => {
 								<Icons.Close />
 							</button>
 							<div className='popupDashboard__title'>
-								<h4> {t('dashboardTitle')}</h4>
+								<h4> dashboardTitle</h4>
 								<button
 									onClick={сloseToggler}
 									type='button'

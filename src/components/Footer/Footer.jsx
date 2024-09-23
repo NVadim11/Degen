@@ -624,6 +624,9 @@ const Footer = ({ user }) => {
 							</button>
 						</div>
 					</div>
+					<div className='footerMain__inviteFr'>
+						<span>+ INVITE FRIEND</span>
+					</div>
 				</div>
 			</footer>
 			{tasksOpen && (

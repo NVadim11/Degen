@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import energy from '../../img/energy.webp';
 import boostCoin from '../../img/deganBoost.webp';
+import deganCoin from '../../img/deganCoin.webp';
 import chiefActive from '../../img/DChef.webp';
 import chiefBoost from '../../img/DChef_boost.webp';
 import { useUpdateBalanceMutation } from '../../services/phpService';
@@ -29,7 +30,7 @@ const MainContent = ({ user }) => {
 	const [timeRemaining, setTimeRemaining] = useState('');
 	const [isAnimationActive, setIsAnimationActive] = useState(false);
 	const [animations, setAnimations] = useState([]);
-	const [totalPoints, setTotalPoints] = useState(user?.wallet_balance);
+	const [totalPoints, setTotalPoints] = useState(user?.wallet_balance ?? 0);
 	const accumulatedCoinsRef = useRef(0);
 	const [unsubmittedCoins, setUnsubmittedCoins] = useState(0);
 	const [isCoinsChanged, setIsCoinsChanged] = useState(false);
@@ -375,6 +376,7 @@ const MainContent = ({ user }) => {
 	const handleTouchEnd = () => {
 		const clickNewCoins = updateCurrCoins();
 		setCurrCoins((prevCoins) => prevCoins + clickNewCoins);
+		setTotalPoints((prevCoins) => prevCoins + clickNewCoins);
 		accumulatedCoinsRef.current += clickNewCoins;
 		setCurrEnergy((prevEnergy) => Math.min(prevEnergy + energyVal, 1000));
 	};
@@ -383,17 +385,10 @@ const MainContent = ({ user }) => {
 		setAnimations([]);
 	};
 
-	useEffect(() => {
-		const fetchData = async () => {
-			if (Object.keys(user).length) {
-				setTotalPoints(user?.wallet_balance);
-			}
-		};
+	const isSmallScreen = window.innerHeight <= 685;
 
-		if (user) {
-			fetchData();
-		}
-	}, [user]);
+	const yValues = isSmallScreen ? [-50, -120] : [-150, -230];
+	const xValues = isSmallScreen ? [-10, -10] : [15, 15];
 
 	return (
 		<div className='mainContent'>
@@ -481,20 +476,24 @@ const MainContent = ({ user }) => {
 									) : null}
 									<div className='mainContent__header'>
 										<div className='mainContent__totalCoins'>
-											<h4>Your Balance</h4>
-											<div className='mainContent__totalCoinsBox'>
-												<div className='mainContent__totalCoinsImg' draggable='false'>
-													<img src={boostCoin} draggable='false' />
-												</div>
-												{user && totalPoints !== null && (
-													<div className='mainContent__totalCoinsAmount'>
-														<span>{totalPoints}</span>
-													</div>
-												)}
+											<div className='mainContent__totalCoinsText'>
+												<h4>Your Balance</h4>
+											</div>
+											<div className='mainContent__totalCoinsAmount' draggable='false'>
+												<img src={deganCoin} draggable='false' />
+												<span>{totalPoints}</span>
 											</div>
 										</div>
 										{!gamePaused && (
 											<div className='mainContent__energyContainer'>
+												<div className='mainContent__energyBar'>
+													<progress
+														className='filledBar'
+														id='filledBar'
+														max='1000'
+														value={currEnergy}
+													></progress>
+												</div>
 												<div className='mainContent__energyValue'>
 													<img src={energy} alt='' />
 													<p className='energyCount' id='energyCount'>
@@ -504,14 +503,6 @@ const MainContent = ({ user }) => {
 													<p className='maximumEnergy' id='maximumEnergy'>
 														{maxEnergy}
 													</p>
-												</div>
-												<div className='mainContent__energyBar'>
-													<progress
-														className='filledBar'
-														id='filledBar'
-														max='1000'
-														value={currEnergy}
-													></progress>
 												</div>
 											</div>
 										)}
@@ -527,25 +518,23 @@ const MainContent = ({ user }) => {
 													<motion.div
 														className='clickerAnimation'
 														initial={{ opacity: 1, y: 0 }}
-														animate={{ opacity: [1, 0], y: [-90, -240] }}
+														animate={{ opacity: [1, 0], x: xValues, y: yValues }}
 														exit={{ opacity: 0 }}
-														transition={{ duration: 1.5 }}
+														transition={{ duration: 0.5 }}
 														style={{
 															color: '#000',
-															fontSize: '34px',
+															fontSize: '52px',
 															left: `${anim.x}px`,
 															top: `${anim.y}px`,
 															position: 'absolute',
-															color: boostPhase ? '#FFDA17' : '#333333',
+															color: '#333333',
 															zIndex: 10,
-															fontFamily: 'Tomarik',
-															textShadow: '0px 4px 6px rgba(0, 0, 0, 0.6)',
 														}}
 														onAnimationComplete={() => {
 															clearAnimations(index);
 														}}
 													>
-														+{clickNewCoins}
+														<div className='clicker__clickValue'></div>+{clickNewCoins}
 													</motion.div>
 												)}
 											</AnimatePresence>

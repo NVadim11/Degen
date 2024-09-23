@@ -54,12 +54,14 @@ body::after {
 .footerMain {
     z-index: 14;
     position: relative;
-    margin: 10px 0 10px 0;
+    margin: 0px 0 40px 0;
     @media (max-width: 359px) { 
       scale: 0.9;
     }
   &__container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
   }
   &__activities {
@@ -107,13 +109,19 @@ body::after {
     span {
       z-index: 10;
       position: relative;
-      color: #ffffff;
+      color: var(--goldColor);
     }
     img {
       position: relative;
       z-index: 10;
       margin-right: 10px;
     }
+  }
+  &__inviteFr {
+    display: flex;
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
   }
   &__activitiesHint {
     position: absolute;

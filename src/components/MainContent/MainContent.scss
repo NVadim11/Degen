@@ -38,43 +38,35 @@
     margin-top: 20px;
   }
   &__totalCoins {   
-    justify-content: center;
-    display: flex;    
-  }
- &__totalCoinsBox {
-   backdrop-filter: blur(24px);
-   background: var(--altBG);
-   border: 2px solid var(--mainColor);
-   border-radius: 77px;
-   display: flex;
+    flex-direction: column;
    align-items: center;
    width: fit-content;
    align-self: center;
    justify-content: center;
-   padding: 12px 24px;
+    display: flex;    
+    
   }
-  &__totalCoinsImg {
+ &__totalCoinsText {
    display: flex;
+   font-family: "SFproReg";
+   font-size: 18px;
+   flex-direction: column;
    align-items: center;
-   margin-right: 10px;
-   height: 36px;
-   width: 30px;
-   background: var(--altBG);
-   img {
-    width: 100%;
-   }
+   width: fit-content;
+   align-self: center;
+   justify-content: center;
   }
   &__totalCoinsAmount {
    display: flex;
    align-items: center;
-   span {
-   font-weight: 400;
-   font-size: 28px;
-   line-height: 100%;
-   letter-spacing: 0.01em;
-   color: var(--mainColor);
+   font-size: 42px;
+   img {
+    margin-top: 15px;
+    margin-right: 5px;
+    height: 36px;
+    width: 36px;
    }
- }
+  }
  &__energyContainer {
   display: flex;
   flex-direction: column;
@@ -93,16 +85,19 @@
   display: flex;
   flex-direction: row;
   font-size: 22px;
+  margin-top: 10px;
+  img {
+    margin-top: 5px;
+  }
  }
- &__energyBar {
-  margin-top: 15px;
+  &__energyBar {
   justify-content: flex-start;
   overflow: hidden;
   align-items: center;
   position: relative;
   display: flex;
   width: 300px;
-  height: 15px;
+  height: 6px;
   border-radius: 37px;
   progress {
     width: 100%;
@@ -111,6 +106,7 @@
   }
   progress::-webkit-progress-bar {
     border-radius: 37px;
+    background: rgba(255, 255, 255, 0.45);
   }
   progress::-webkit-progress-value {
     border-radius: 37px;
@@ -122,14 +118,20 @@
     flex-direction: column;
     align-items: center;  
     justify-content: center;  
+    width: 314px;
+    height: 367px;
     img {     
       display: flex; 
-      width: 100%;  
       height: 100%;
-    } 
+      width: 100%;
+    }
+    @media (max-height: 730px) {
+      width: 214px;
+      height: 267px;
+    }
   }
   &__clickArea {
-    margin: 10px 0;
+    margin: 15px 0;
     height: 100%;
     width: 100%;
     display: flex;
