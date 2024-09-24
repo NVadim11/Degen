@@ -1,45 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
 import deganCoin from '../../img/deganCoin.webp';
-import {
-	useGetLeaderboardMutation,
-	useGetDashboardMutation,
-} from '../../services/phpService';
+import { useGetLeaderboardMutation } from '../../services/phpService';
 import './Header.scss';
 import { TonConnectButton } from '@tonconnect/ui-react';
 import { useTonConnectUI } from '@tonconnect/ui-react';
-import DashboardModal from './DashboardModal/DashboardModal.jsx';
 import Icons from '../Common/IconsComponent.jsx';
+import { closeToggler } from '../../helpers/closeBtn';
 
 const Header = ({ user }) => {
-	const [isShown, setIsShown] = useState(false);
-	const [totalReferrals, setTotalReferrals] = useState(user?.referrals_count);
 	const [leaderboardData, setLeaderboardData] = useState([]);
-	const [dashboardData, setDashboardData] = useState([]);
 	const [isLeaderboardOpen, setLeaderboardOpen] = useState(false);
-	const [isInviteOpen, setInviteOpen] = useState(false);
-	const [isDashboardOpen, setDashboardOpen] = useState(false);
 	const [getLeaderboard] = useGetLeaderboardMutation();
-	const [getDashboard] = useGetDashboardMutation();
-	const [generatedUrl, setGeneratedUrl] = useState('');
-	const [copied, setCopied] = useState(false);
 
 	const popupClsTgl = isLeaderboardOpen ? 'popupLeaderboard_show' : null;
 	const popupClasses = `popupLeaderboard ${popupClsTgl}`;
 
-	const popupInvTgl = isInviteOpen ? 'popupInvite_show' : null;
-	const popupInvite = `popupInvite ${popupInvTgl}`;
-
-	const popupDashTgl = isDashboardOpen ? 'popupDashboard_show' : null;
-	const popupDashboard = `popupDashboard ${popupDashTgl}`;
-
 	const containerRef = useRef(null);
-	const menuRef = useRef(null);
 
 	const tg = window.Telegram.WebApp;
-
-	const toggleMenu = () => {
-		setIsShown((prev) => !prev);
-	};
 
 	const [isWalletButtonRef, setIsWalletButtonRef] = useState(false);
 	const [tonConnectUI] = useTonConnectUI();
@@ -49,23 +27,6 @@ const Header = ({ user }) => {
 		setTimeout(() => setIsWalletButtonRef(false), 200);
 		if (!tonConnectUI.connected) tonConnectUI.openModal();
 	};
-
-	useEffect(() => {
-		setTotalReferrals(user?.referrals_count);
-	}, [user]);
-
-	useEffect(() => {
-		const handleOutsideClick = (event) => {
-			if (menuRef.current && menuRef.current.contains(event.target)) {
-				return;
-			}
-			if (event.target.closest('.header__menuBtn')) return;
-			setIsShown(false);
-		};
-
-		document.addEventListener('mousedown', handleOutsideClick);
-		return () => document.removeEventListener('mousedown', handleOutsideClick);
-	}, []);
 
 	const getLeaderboardBtn = () => {
 		const fetchData = async () => {
@@ -77,32 +38,8 @@ const Header = ({ user }) => {
 		fetchData();
 
 		fadeShow();
-		setIsShown(false);
 		setTimeout(() => {
 			setLeaderboardOpen(true);
-		}, 250);
-	};
-
-	const getDashboardBtn = () => {
-		const fetchData = async () => {
-			if (Object.keys(user).length) {
-				const res = await getDashboard(user.id_telegram);
-				setDashboardData(res);
-			}
-		};
-		fetchData();
-		fadeShow();
-		setIsShown(false);
-		setTimeout(() => {
-			setDashboardOpen(true);
-		}, 250);
-	};
-
-	const inviteFriendsBtn = () => {
-		fadeShow();
-		setIsShown(false);
-		setTimeout(() => {
-			setInviteOpen(true);
 		}, 250);
 	};
 
@@ -119,8 +56,6 @@ const Header = ({ user }) => {
 
 	const сloseToggler = () => {
 		setLeaderboardOpen(false);
-		setInviteOpen(false);
-		setDashboardOpen(false);
 		const htmlTag = document.getElementById('html');
 		if (htmlTag) htmlTag.classList.remove('popupLeaderboard-show');
 		const headerTag = document.getElementById('header');
@@ -131,37 +66,6 @@ const Header = ({ user }) => {
 		if (mainTag) mainTag.classList.remove('show-blur');
 		if (bgTag) bgTag.classList.remove('h100');
 		if (footerTag) footerTag.classList.remove('show-blur');
-	};
-
-	useEffect(() => {
-		// Load the URL from localStorage on mount
-		const storedUrl = localStorage.getItem('generatedUrl');
-		if (storedUrl) {
-			setGeneratedUrl(storedUrl);
-		}
-	}, []);
-
-	const generateUrl = (user) => {
-		if (user.id_telegram) {
-			// const referralURL = `t.me/Tema_cash_bot/app?startapp=${user.id_telegram}`;
-			const referralURL = `t.me/our_develepment_bot/app?startapp=${user.id_telegram}`;
-			setGeneratedUrl(referralURL);
-			localStorage.setItem('generatedUrl', referralURL);
-		}
-	};
-
-	const copyToClipboard = () => {
-		navigator.clipboard
-			.writeText(generatedUrl)
-			.then(() => {
-				setCopied(true);
-				setTimeout(() => {
-					setCopied(false);
-				}, 2000);
-			})
-			.catch((err) => {
-				console.error('Failed to copy: ', err);
-			});
 	};
 
 	return (
@@ -195,6 +99,16 @@ const Header = ({ user }) => {
 							/>
 						</div>
 					</div>
+					<label
+						style={{
+							position: 'absolute',
+							top: '76px',
+							left: '14px',
+						}}
+						htmlFor='header__menuBtn'
+					>
+						Wallet
+					</label>
 					<button
 						className='header__menuBtn'
 						ref={containerRef}
@@ -202,98 +116,18 @@ const Header = ({ user }) => {
 					>
 						<Icons.menuBtn />
 					</button>
-					{isShown && (
-						<div className='header__menu' ref={menuRef}>
-							<a className='header__menu-links' onClick={getLeaderboardBtn}>
-								Leaderboard
-								<Icons.Leaderboard />
-							</a>
-							<a
-								className='header__menu-links'
-								onClick={inviteFriendsBtn}
-								rel='noopener noreferrer'
-							>
-								Referral
-								<Icons.Referral />
-							</a>
-						</div>
-					)}
+					<label
+						style={{
+							position: 'absolute',
+							top: '76px',
+							right: '16px',
+						}}
+						htmlFor='header__menuBtn'
+					>
+						Rating
+					</label>
 				</div>
 			</header>
-			{isInviteOpen && (
-				<div id='popupInvite' aria-hidden='true' className={popupInvite}>
-					<div className='popupInvite__wrapper'>
-						<div className='popupInvite__content'>
-							<button onClick={сloseToggler} type='button' className='popupInvite__close'>
-								<Icons.Close />
-							</button>
-							<div className='popupInvite__title'>
-								<h4>invite friends. get rewards together</h4>
-							</div>
-							<div className='popupInvite__refInfo'>
-								<div className='popupInvite__refInfo-box'>
-									<p>Your Bonus</p>
-									<div className='popupInvite__refInfo-coins'>
-										<img src={deganCoin} alt='Degan Coin Icon' />
-										<img src={deganCoin} alt='Degan Coin Icon' />
-										<img src={deganCoin} alt='Degan Coin Icon' />
-										<img src={deganCoin} alt='Degan Coin Icon' />
-										<img src={deganCoin} alt='Degan Coin Icon' />
-										<img src={deganCoin} alt='Degan Coin Icon' />
-									</div>
-									<div className='popupInvite__refInfo-item'>
-										<span>10 %</span>
-									</div>
-								</div>
-								{totalReferrals >= 0 && (
-									<div className='popupInvite__refInfo-box'>
-										<p> refCount</p>
-										<div className='popupInvite__refInfo-item'>
-											<span>{totalReferrals}</span>
-										</div>
-									</div>
-								)}
-							</div>
-							<div className='popupInvite__grid'>
-								<ul className='popupInvite__grid-list'>
-									<li className='popupInvite__list-item'>
-										<div className='popupInvite__list-itemDescr'>
-											<h4>Invite</h4>
-											<p> Friends via the referral link</p>
-										</div>
-									</li>
-									<li className='popupInvite__list-item'>
-										<div className='popupInvite__list-itemDescr'>
-											<h4>Get rewards</h4>
-											<p>Receive 10% of your friends staking</p>
-										</div>
-									</li>
-								</ul>
-							</div>
-							<div className='popupInvite__item-box'>
-								<div className='popupInvite__item-group'>
-									<p>generate your link</p>
-									<p className='popupInvite__input'>
-										{generatedUrl.length ? `${generatedUrl}` : 'refLinkDescr'}
-										<button onClick={copyToClipboard} className='popupInvite__input-btn'>
-											<Icons.Copy />
-										</button>
-										{copied && <span className='copied-message'>Copied!</span>}
-									</p>
-								</div>
-								<div className='popupInvite__item-group'>
-									<button
-										className='popupInvite__submit'
-										onClick={() => generateUrl(user)}
-									>
-										generate
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			)}
 			{isLeaderboardOpen && (
 				<div id='leaderboard' aria-hidden='true' className={popupClasses}>
 					<div className='popupLeaderboard__wrapper'>
@@ -392,32 +226,6 @@ const Header = ({ user }) => {
 									{/* })} */}
 								</ul>
 							</div>
-						</div>
-					</div>
-				</div>
-			)}
-			{isDashboardOpen && (
-				<div id='popupDashboard' aria-hidden='true' className={popupDashboard}>
-					<div className='popupDashboard__wrapper'>
-						<div className='popupDashboard__content'>
-							<button
-								onClick={сloseToggler}
-								type='button'
-								className='popupDashboard__close'
-							>
-								<Icons.Close />
-							</button>
-							<div className='popupDashboard__title'>
-								<h4> dashboardTitle</h4>
-								<button
-									onClick={сloseToggler}
-									type='button'
-									className='popupDashboard__close'
-								>
-									<Icons.Close />
-								</button>
-							</div>
-							<DashboardModal dashboardData={dashboardData} />
 						</div>
 					</div>
 				</div>

@@ -1,14 +1,14 @@
 import bcrypt from 'bcryptjs';
 import React, { useEffect, useState, useRef } from 'react';
 import {
-	useChangeWalletMutation,
 	usePassDailyMutation,
 	usePassPartnersMutation,
 	usePassTaskMutation,
-	useSetWalletMutation,
 } from '../../services/phpService';
 
 import deganCoin from '../../img/deganCoin.webp';
+import Referral from '../Popup/Referral/Referral';
+import { closeToggler } from '../../helpers/closeBtn';
 import Modal from '../Modal/Modal';
 import './Footer.scss';
 import Icons from '../Common/IconsComponent.jsx';
@@ -17,14 +17,11 @@ const Footer = ({ user }) => {
 	const tg = window.Telegram.WebApp;
 	const [tasksOpen, setTasksOpen] = useState(false);
 	const [passTask] = usePassTaskMutation();
-	const [setWallet] = useSetWalletMutation();
-	const [changeWallet] = useChangeWalletMutation();
 	const [activeTab, setActiveTab] = useState(0);
 	const [passDaily] = usePassDailyMutation();
 	const [passPartners] = usePassPartnersMutation();
-	const [hasWalletAddress, setHasWalletAddress] = useState(false);
-	const initLanguage = localStorage.getItem('language');
-	const [currLanguage, setCurrLanguage] = useState(initLanguage);
+	const [totalReferrals, setTotalReferrals] = useState(user?.referrals_count);
+	const [isInviteOpen, setInviteOpen] = useState(false);
 
 	const dailyTasksObj = user?.daily_quests;
 	const [dailyQuests, setDailyQuests] = useState(dailyTasksObj);
@@ -55,84 +52,9 @@ const Footer = ({ user }) => {
 	// aws
 	const secretKey = process.env.REACT_APP_SECRET_KEY;
 
-	// const ton_address = useTonAddress(true);
-
-	// wallet toggles
-	const [walletVaL, setWalletVal] = useState('');
-	const [inputFirst, setInputFirst] = useState(true);
-	const [inputSecond, setInputSecond] = useState(false);
-	const [walletInputDisabled, setWalletInputDisabled] = useState(false);
-
-	const toggleFirst = () => {
-		setInputFirst(true);
-		setInputSecond(false);
-	};
-
-	const toggleSecond = () => {
-		setInputFirst(false);
-		setInputSecond(true);
-	};
-
 	useEffect(() => {
-		if (!user?.wallet_address) {
-			toggleFirst();
-		} else {
-			toggleSecond();
-			setWalletVal(user?.wallet_address);
-		}
+		setTotalReferrals(user?.referrals_count);
 	}, [user]);
-
-	const resetWalletEnabler = () => {
-		setWalletInputDisabled(false);
-		setWalletVal('');
-		toggleFirst();
-	};
-
-	const submitWallet = async () => {
-		if (walletVaL) {
-			try {
-				const res = await setWallet({
-					token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
-					wallet_address: walletVaL,
-					id_telegram: user?.id_telegram,
-				}).unwrap();
-				setWalletInputDisabled(true);
-				openModal('green', 'modalWalletSubmitSucc', 'modalReturn');
-				blurPopupTasks();
-				toggleSecond();
-			} catch (e) {
-				openModal('red', 'modalWalletSubmitBusy', 'modalReturn');
-				blurPopupTasks();
-			}
-		}
-	};
-
-	const resetWallet = async () => {
-		if (walletVaL) {
-			try {
-				const res = await changeWallet({
-					token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
-					wallet_address: walletVaL,
-					user_id: user?.id,
-				}).unwrap();
-				setWalletInputDisabled(true);
-				openModal('green', 'modalWalletChangeSucc', 'modalReturn');
-				blurPopupTasks();
-				toggleSecond();
-			} catch (e) {
-				openModal('red', 'modalWalletChangeBusy', 'modalReturn');
-				blurPopupTasks();
-			}
-		}
-	};
-
-	const walletSubmitHandler = () => {
-		if (!user?.wallet_address) {
-			submitWallet();
-		} else {
-			resetWallet();
-		}
-	};
 
 	const openModal = (type, text, btnText) => {
 		setModalType(type);
@@ -197,7 +119,7 @@ const Footer = ({ user }) => {
 		if (bgTag) bgTag.classList.add('h100');
 	};
 
-	const tasksCloseToggler = () => {
+	const closeTasks = () => {
 		setTasksOpen(false);
 		const htmlTag = document.getElementById('html');
 		const headerTag = document.getElementById('header');
@@ -602,15 +524,15 @@ const Footer = ({ user }) => {
 		return () => clearInterval(timerInterval);
 	}, [timerWebsite, websiteTaskStatus]);
 
-	useEffect(() => {
-		if (user?.wallet_address) {
-			setHasWalletAddress(true);
-		}
-	}, [user]);
+	const popupInvTgl = isInviteOpen ? 'popupInvite_show' : null;
+	const popupInvite = `popupInvite ${popupInvTgl}`;
 
-	useEffect(() => {
-		setCurrLanguage(initLanguage);
-	}, [initLanguage]);
+	const inviteFriendsBtn = () => {
+		fadeShow();
+		setTimeout(() => {
+			setInviteOpen(true);
+		}, 250);
+	};
 
 	return (
 		<>
@@ -623,7 +545,7 @@ const Footer = ({ user }) => {
 							</button>
 						</div>
 					</div>
-					<div className='footerMain__inviteFr'>
+					<div className='footerMain__inviteFr' onClick={inviteFriendsBtn}>
 						<span>+ INVITE FRIEND</span>
 					</div>
 				</div>
@@ -634,11 +556,7 @@ const Footer = ({ user }) => {
 						<div className='popupTasks__content'>
 							<div className='popupTasks__title'>
 								<h4>complete Tasks and get rewards</h4>
-								<button
-									onClick={tasksCloseToggler}
-									type='button'
-									className='popupTasks__close'
-								>
+								<button onClick={closeTasks} type='button' className='popupTasks__close'>
 									<Icons.Close />
 								</button>
 							</div>
@@ -937,6 +855,14 @@ const Footer = ({ user }) => {
 						</div>
 					</div>
 				</div>
+			)}
+			{isInviteOpen && (
+				<Referral
+					user={user}
+					totalReferrals={totalReferrals}
+					className={popupInvite}
+					сloseToggler={() => closeToggler([setInviteOpen])}
+				/>
 			)}
 			<Modal
 				modalText={modalText}
