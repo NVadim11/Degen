@@ -8,7 +8,6 @@ import {
 	useSetWalletMutation,
 } from '../../services/phpService';
 
-// import { useTonAddress, TonConnectButton } from '@tonconnect/ui-react';
 import deganCoin from '../../img/deganCoin.webp';
 import Modal from '../Modal/Modal';
 import './Footer.scss';
@@ -679,90 +678,6 @@ const Footer = ({ user }) => {
 								</div>
 							</div>
 							<div className={`popupTasks__tasks ${activeTab === 0 ? 'active' : ''}`}>
-								{/* ton wallet  */}
-								{/* <div className='popupTasks__walletTask'>
-									<TonConnectButton
-										className='tonconnect-btn'
-										style={{ position: 'relative' }}
-									/>
-									{!user?.wallet_address ? (
-										<p>
-											20000
-											<img src={deganCoin} alt='Tiger coin' />
-										</p>
-									) : (
-										<p>activityDone</p>
-									)}
-								</div> */}
-								{/* simple wallet */}
-								{/* <div className='popupTasks__walletTask'>
-									{inputFirst && (
-										<>
-											<div className='popupTasks__walletTask-title'>
-												<span>DESCR</span>
-											</div>
-											<div className='popupTasks__walletTask-input'>
-												<input
-													type='text'
-													placeholder='PLACEHOLDER'
-													style={{
-														background: 'transparent',
-														color: '#fff',
-														fontSize: '0.75rem!important',
-													}}
-													value={walletVaL}
-													onChange={(e) => setWalletVal(e.target.value)}
-													disabled={walletInputDisabled === true}
-												/>
-												<button
-													className='popupTasks__walletTask-inputBtn'
-													onClick={walletSubmitHandler}
-													// disabled={walletInputDisabled === true}
-												>
-													<Icons.submitWallet />
-												</button>
-											</div>
-										</>
-									)}
-									{inputSecond && (
-										<>
-											<div className='popupTasks__walletTask-title'>
-												<span>TITLE</span>
-											</div>
-											<div className='popupTasks__walletTask-input'>
-												<input
-													type='text'
-													style={{
-														background: 'transparent',
-														color: '#fff',
-														fontSize: '0.75rem!important',
-													}}
-													value={walletVaL}
-													disabled
-												/>
-												<button
-													className='popupTasks__walletTask-inputBtn'
-													onClick={resetWalletEnabler}
-												>
-													<Icons.resetWallet />
-												</button>
-											</div>
-										</>
-									)}
-
-									<div className='popupTasks__walletTask-box'>
-										<div className='popupTasks__walletTask-right'>
-											<div className='popupTasks__walletTask-rightHint'></div>
-										</div>
-										{!user?.wallet_address ? (
-											<div className='popupTasks__walletTask-left'>
-												<p>+20000</p>
-											</div>
-										) : (
-											''
-										)}
-									</div>
-								</div> */}
 								<div className='popupTasks__task'>
 									<button onClick={twitterClick} disabled={twitterTaskStatus === 1}>
 										<span>

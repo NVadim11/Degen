@@ -5,6 +5,8 @@ import {
 	useGetDashboardMutation,
 } from '../../services/phpService';
 import './Header.scss';
+import { TonConnectButton } from '@tonconnect/ui-react';
+import { useTonConnectUI } from '@tonconnect/ui-react';
 import DashboardModal from './DashboardModal/DashboardModal.jsx';
 import Icons from '../Common/IconsComponent.jsx';
 
@@ -39,10 +41,13 @@ const Header = ({ user }) => {
 		setIsShown((prev) => !prev);
 	};
 
-	const handleTGUrl = () => {
-		let url;
-		url = 'https://t.me/TigerCashChannel';
-		window.open(url, '_blank');
+	const [isWalletButtonRef, setIsWalletButtonRef] = useState(false);
+	const [tonConnectUI] = useTonConnectUI();
+
+	const showConnectModal = () => {
+		setIsWalletButtonRef(true);
+		setTimeout(() => setIsWalletButtonRef(false), 200);
+		if (!tonConnectUI.connected) tonConnectUI.openModal();
 	};
 
 	useEffect(() => {
@@ -163,7 +168,38 @@ const Header = ({ user }) => {
 		<>
 			<header id='header' className='header'>
 				<div className='header__btn-group'>
-					<button className='header__menuBtn' ref={containerRef} onClick={toggleMenu}>
+					<div
+						className='header__menuBtn'
+						style={{
+							position: 'absolute',
+							left: '12px',
+							overflow: 'hidden',
+						}}
+						onClick={() => showConnectModal()}
+					>
+						<Icons.WalletIcon />
+						<div className={` ${isWalletButtonRef ? 'active' : ''}`}></div>
+						<div
+							style={{
+								position: 'absolute',
+								left: '50px',
+								overflow: 'hidden',
+							}}
+						>
+							<TonConnectButton
+								style={{
+									position: 'absolute',
+									left: '50px',
+									zIndex: '100',
+								}}
+							/>
+						</div>
+					</div>
+					<button
+						className='header__menuBtn'
+						ref={containerRef}
+						onClick={getLeaderboardBtn}
+					>
 						<Icons.menuBtn />
 					</button>
 					{isShown && (
