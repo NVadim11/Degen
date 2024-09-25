@@ -152,16 +152,16 @@ body::after {
     flex-direction: column;
     position: relative;
     border-radius: 20px;
-    padding: 22px 12px;
+    padding: 0px 12px;
     background: transparent;
   }
   &__close {
-      position: absolute;
-      top: 0px;
-      right: 10px;
+		position: absolute;
+		top: 0px;
+		right: 15px;
   }
   &__title {
-    margin-top: 60px;
+		margin-top: 46px;
     display: flex;
     position: relative;
     text-align: center;
