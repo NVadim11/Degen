@@ -154,6 +154,18 @@
   ._active {
     display: flex !important;
   }
+
+  .wave {
+    position: absolute;
+    bottom: -50%;
+    height: 115%;
+    width: 115%;
+    img {
+      transform: rotate(180deg);
+      height: 100%;
+      width: 100%;
+    }
+  }
   
   .energyBar {
     justify-content: flex-start;
@@ -180,29 +192,8 @@
     box-shadow: inset 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
   }
 
-  // .active button {
-  //   opacity: 1;
-  //   color: var(--mainColor);
-  //   border: 1px solid #fff;
-  //   background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);
-  //   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-  // }
-
   .blackLine {
     border: 1px solid var(--mainColor);
     width: 76px;
     height: 0px;
   }
-  /* body::-webkit-scrollbar {
-    width: 0.3125rem;
-  }
-  
-  body::-webkit-scrollbar-track {
-    background: rgba(15, 4, 36, 0.726);
-  }
-  
-  body::-webkit-scrollbar-thumb {
-    background-color: linear-gradient(146deg, #5c556c 0%, #717f90 100%);
-    border-radius: 1.25rem;
-    border: 0.1875rem solid #717f90;
-  } */

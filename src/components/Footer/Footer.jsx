@@ -7,6 +7,7 @@ import {
 } from '../../services/phpService';
 
 import deganCoin from '../../img/deganCoin.webp';
+import altBgWave from '../../img/altBgWave.webp';
 import Referral from '../Popup/Referral/Referral';
 import { closeToggler } from '../../helpers/closeBtn';
 import Modal from '../Modal/Modal';
@@ -201,7 +202,6 @@ const Footer = ({ user }) => {
 			const res = { success: true };
 
 			if (res.success) {
-				// Update quest status to completed (status: 1)
 				updateDailyQStatus(taskId, 1);
 				openModal('green', 'modalSuccess', 'modalReturn');
 				blurPopupTasks();
@@ -216,7 +216,6 @@ const Footer = ({ user }) => {
 	};
 
 	const updateDailyQStatus = (taskId, status) => {
-		// Update the quest status in state
 		setDailyQuests((prevQuests) =>
 			prevQuests.map((quest) =>
 				quest.id === taskId ? { ...quest, status: status } : quest
@@ -259,7 +258,7 @@ const Footer = ({ user }) => {
 		if (!timers[taskId]) {
 			setTimers((prevTimers) => ({
 				...prevTimers,
-				[taskId]: 15, // Set to 15 seconds
+				[taskId]: 15,
 			}));
 		}
 
@@ -586,7 +585,6 @@ const Footer = ({ user }) => {
 									onClick={() => handleTabClick(1)}
 								>
 									<button>DAILY</button>
-									{/* <div className='footerMain__activitiesHint'>Coming Soon</div> */}
 								</div>
 								<div
 									className={`popupTasks__tabs-btn ${activeTab === 2 ? 'active' : ''}`}
@@ -853,6 +851,9 @@ const Footer = ({ user }) => {
 										))}
 							</div>
 						</div>
+					</div>
+					<div className='wave'>
+						<img src={altBgWave} alt='background wave' />
 					</div>
 				</div>
 			)}

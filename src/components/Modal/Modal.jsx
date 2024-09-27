@@ -45,7 +45,12 @@ export default function Modal({
 			<div className='modalWindow__title'>
 				<h4>{modalText}</h4>
 			</div>
-			<button onClick={onButtonClick} type='button' className='modalWindow__action'>
+			<button
+				onClick={onButtonClick}
+				style={{ border: '1px solid #fff' }}
+				type='button'
+				className='modalWindow__action'
+			>
 				{buttonText}
 			</button>
 		</div>

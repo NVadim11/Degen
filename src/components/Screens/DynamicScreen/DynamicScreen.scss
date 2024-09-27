@@ -8,18 +8,63 @@
   position: absolute;
   justify-content: center;
 }
-.componentText {
+.componentLogo {
 	display: flex;
 	align-items: center;
 	position: absolute;
-	top: 80%;
+	height: 72px;
+	width: 127px;
+	top: 10%;
+	img {
+		height: 100%;
+		width: 100%;
+	}
+}
+.componentIcon {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	top: 29%;
+}
+.componentTitle {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	top: 35%;
 	padding: 0 40px;
 	h4 {
 		font-weight: 400;
-		font-size: 24px;
+		font-size: 26px;
 		line-height: 100%;
 		letter-spacing: 0.01em;
 		text-align: center;
 		color: var(--altColor);
 	}
+}
+.componentDescr {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	top: 40%;
+	padding: 0 80px;
+	p {
+		font-family: 'SFproReg';
+		font-weight: 400;
+		font-size: 18px;
+		line-height: 100%;
+		letter-spacing: 0.01em;
+		text-align: center;
+		color: var(--altColor);
+	}
+}
+.bgWave {
+  display: flex;
+  align-self: flex-start;
+  height: 70%;
+  width: 100%;
+  margin-top: -70%;
+  img {
+    height: 100%;
+    width: 100%;
+  }
 }

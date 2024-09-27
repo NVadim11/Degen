@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import deganCoin from '../../img/deganCoin.webp';
+import altBgWave from '../../img/altBgWave.webp';
 import { useGetLeaderboardMutation } from '../../services/phpService';
 import './Header.scss';
 import { TonConnectButton, useTonConnectUI, useTonAddress } from '@tonconnect/ui-react';
@@ -272,6 +273,9 @@ const Header = ({ user }) => {
 								</ul>
 							</div>
 						</div>
+					</div>
+					<div className='wave'>
+						<img src={altBgWave} alt='background wave' />
 					</div>
 				</div>
 			)}

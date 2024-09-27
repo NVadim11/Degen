@@ -7,7 +7,36 @@
   height: 100%;
   width: 100%;
   position: absolute;
-  justify-content: flex-end;
+  justify-content: center;
+}
+
+.bgWave {
+  display: flex;
+  align-self: flex-start;
+  height: 70%;
+  width: 100%;
+  margin-top: -70%;
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.preloaderLogo {
+  display: flex;
+  position: absolute;
+  align-self: center;
+  height: 300px;
+  width: 245px;
+  top: 13%;
+}
+.logoText {
+  display: flex;
+  align-self: center;
+  position: absolute;
+  height: 150px;
+  width: 267px;
+  bottom: 20%;
 }
 
 .preloaderText {
@@ -27,18 +56,21 @@
 }
 
 .progressBar {
-  margin-bottom: 50px;
+  display: flex;
+  align-self: center;
+  position: absolute;
   width: 80%;
-  height: 10px;
-  background-color: #fff;
+  height: 6px;
+  background-color: var(--goldColor);
   border-radius: 5px;
   overflow: hidden;
+  bottom: 15%;
 }
 
 .progress {
   width: 0;
   height: 100%;
-  background-color: #2cb726;;
+  background-color: var(--redColor);
   animation: progressAnimation 3s linear infinite;
 }
 

@@ -9,6 +9,7 @@ import boostCoin from '../../img/deganBoost.webp';
 import deganCoin from '../../img/deganCoin.webp';
 import chiefActive from '../../img/DChef.webp';
 import chiefBoost from '../../img/DChef_boost.webp';
+import altBgWave from '../../img/altBgWave.webp';
 import { useUpdateBalanceMutation } from '../../services/phpService';
 import GamePaused from './GamePaused/GamePaused';
 import './MainContent.scss';
@@ -553,6 +554,9 @@ const MainContent = ({ user }) => {
 						</>
 					)}
 				</div>
+			</div>
+			<div className='wave'>
+				<img src={altBgWave} alt='background wave' />
 			</div>
 		</div>
 	);

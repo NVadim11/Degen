@@ -11,6 +11,9 @@ import Dchef_preload from '../img/Dchef_preload.webp';
 import deganBoost from '../img/deganBoost.webp';
 import deganCoin from '../img/deganCoin.webp';
 import energy from '../img/energy.webp';
+import bgWave from '../img/bgWave.webp';
+import altBgWave from '../img/altBgWave.webp';
+import dChef_name from '../img/dChef_name.webp';
 
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
@@ -49,10 +52,9 @@ const MainComponent = () => {
 					},
 					auth_date: initData?.auth_date,
 					hash: initData?.hash,
-					timezone: moment.tz.guess(), // Automatically get the user's timezone
+					timezone: moment.tz.guess(),
 				};
 
-				// Conditionally add parent_id_telegram
 				if (initData?.start_param) {
 					body.parent_id_telegram = initData.start_param;
 				}
@@ -100,6 +102,9 @@ const MainComponent = () => {
 			deganBoost,
 			deganCoin,
 			energy,
+			bgWave,
+			altBgWave,
+			dChef_name,
 		];
 
 		const loadImages = async () => {
