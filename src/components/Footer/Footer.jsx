@@ -50,8 +50,85 @@ const Footer = ({ user }) => {
 	const [timerChannel, setChannelTimer] = useState(0);
 	const [timerWebsite, setWebsiteTimer] = useState(0);
 
+	// wallet toggles
+	const [walletVaL, setWalletVal] = useState('');
+	const [inputFirst, setInputFirst] = useState(true);
+	const [inputSecond, setInputSecond] = useState(false);
+	const [walletInputDisabled, setWalletInputDisabled] = useState(false);
+
 	// aws
 	const secretKey = process.env.REACT_APP_SECRET_KEY;
+
+	const toggleFirst = () => {
+		setInputFirst(true);
+		setInputSecond(false);
+	};
+
+	const toggleSecond = () => {
+		setInputFirst(false);
+		setInputSecond(true);
+	};
+
+	useEffect(() => {
+		if (!user?.wallet_address) {
+			toggleFirst();
+		} else {
+			toggleSecond();
+			setWalletVal(user?.wallet_address);
+		}
+	}, [user]);
+
+	const resetWalletEnabler = () => {
+		setWalletInputDisabled(false);
+		setWalletVal('');
+		toggleFirst();
+	};
+
+	const submitWallet = async () => {
+		if (walletVaL) {
+			try {
+				const res = await setWallet({
+					token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
+					wallet_address: walletVaL,
+					id_telegram: user?.id_telegram,
+				}).unwrap();
+				setWalletInputDisabled(true);
+				openModal('green', `${t('modalWalletSubmitSucc')}`, `${t('modalReturn')}`);
+				blurPopupTasks();
+				toggleSecond();
+			} catch (e) {
+				openModal('red', `${t('modalWalletSubmitBusy')}`, `${t('modalReturn')}`);
+				blurPopupTasks();
+			}
+		}
+	};
+
+	const resetWallet = async () => {
+		if (walletVaL) {
+			try {
+				const res = await changeWallet({
+					token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
+					wallet_address: walletVaL,
+					user_id: user?.id,
+				}).unwrap();
+				setWalletInputDisabled(true);
+				openModal('green', `${t('modalWalletChangeSucc')}`, `${t('modalReturn')}`);
+				blurPopupTasks();
+				toggleSecond();
+			} catch (e) {
+				openModal('red', `${t('modalWalletChangeBusy')}`, `${t('modalReturn')}`);
+				blurPopupTasks();
+			}
+		}
+	};
+
+	const walletSubmitHandler = () => {
+		if (!user?.wallet_address) {
+			submitWallet();
+		} else {
+			resetWallet();
+		}
+	};
 
 	useEffect(() => {
 		setTotalReferrals(user?.referrals_count);
@@ -133,53 +210,6 @@ const Footer = ({ user }) => {
 		if (footerTag) footerTag.classList.remove('show-blur');
 		if (bgTag) bgTag.classList.remove('h100');
 	};
-
-	// Ton wallet handlers
-
-	// const submitWallet = async () => {
-	// 	if (ton_address) {
-	// 		try {
-	// 			const res = await setWallet({
-	// 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
-	// 				wallet_address: ton_address,
-	// 				id_telegram: user?.id_telegram,
-	// 			}).unwrap();
-	// 		} catch (e) {
-	// 			console.log(e);
-	// 		}
-	// 	}
-	// };
-
-	// const updateWallet = async () => {
-	// 	if (ton_address) {
-	// 		try {
-	// 			const res = await changeWallet({
-	// 				token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
-	// 				wallet_address: ton_address,
-	// 				user_id: user?.id,
-	// 			}).unwrap();
-	// 		} catch (e) {
-	// 			console.log(e);
-	// 		}
-	// 	}
-	// };
-
-	// useEffect(() => {
-	// 	const handleWalletLogic = async () => {
-	// 		if (ton_address) {
-	// 			if (user?.wallet_address === null) {
-	// 				await submitWallet();
-	// 			} else if (
-	// 				user?.wallet_address !== null &&
-	// 				ton_address !== user?.wallet_address
-	// 			) {
-	// 				await updateWallet();
-	// 			}
-	// 		}
-	// 	};
-
-	// 	handleWalletLogic();
-	// }, [ton_address, user]);
 
 	const blurPopupTasks = () => {
 		const popupTasks = document.getElementById('popupTasks');
@@ -548,6 +578,9 @@ const Footer = ({ user }) => {
 						<span>+ INVITE FRIEND</span>
 					</div>
 				</div>
+				<div className='wave'>
+					<img src={altBgWave} alt='background wave' />
+				</div>
 			</footer>
 			{tasksOpen && (
 				<div id='popupTasks' aria-hidden='true' className={popupTasks}>
@@ -594,6 +627,74 @@ const Footer = ({ user }) => {
 								</div>
 							</div>
 							<div className={`popupTasks__tasks ${activeTab === 0 ? 'active' : ''}`}>
+								<div className='popupTasks__walletTask'>
+									{inputFirst && (
+										<>
+											<div className='popupTasks__walletTask-title'>
+												<span>walletTaskDescr</span>
+											</div>
+											<div className='popupTasks__walletTask-input'>
+												<input
+													type='text'
+													placeholder='walletTaskPlaceholder'
+													style={{
+														background: 'transparent',
+														color: '#fff',
+														fontSize: '0.75rem!important',
+													}}
+													value={walletVaL}
+													onChange={(e) => setWalletVal(e.target.value)}
+													disabled={walletInputDisabled === true}
+												/>
+												<button
+													className='popupTasks__walletTask-inputBtn'
+													onClick={walletSubmitHandler}
+													// disabled={walletInputDisabled === true}
+												>
+													<Icons.submitWallet />
+												</button>
+											</div>
+										</>
+									)}
+									{inputSecond && (
+										<>
+											<div className='popupTasks__walletTask-title'>
+												<span>walletTaskTitle</span>
+											</div>
+											<div className='popupTasks__walletTask-input'>
+												<input
+													type='text'
+													style={{
+														background: 'transparent',
+														color: '#fff',
+														fontSize: '0.75rem!important',
+													}}
+													value={walletVaL}
+													disabled
+												/>
+												<button
+													className='popupTasks__walletTask-inputBtn'
+													onClick={resetWalletEnabler}
+												>
+													<Icons.resetWallet />
+												</button>
+											</div>
+										</>
+									)}
+
+									<div className='popupTasks__walletTask-box'>
+										<div className='popupTasks__walletTask-right'>
+											<div className='popupTasks__walletTask-rightHint'></div>
+										</div>
+										{!user?.wallet_address ? (
+											<div className='popupTasks__walletTask-left'>
+												<p>+20000</p>
+											</div>
+										) : (
+											''
+										)}
+									</div>
+								</div>
 								<div className='popupTasks__task'>
 									<button onClick={twitterClick} disabled={twitterTaskStatus === 1}>
 										<span>

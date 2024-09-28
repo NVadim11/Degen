@@ -3,7 +3,6 @@ import deganCoin from '../../img/deganCoin.webp';
 import altBgWave from '../../img/altBgWave.webp';
 import { useGetLeaderboardMutation } from '../../services/phpService';
 import './Header.scss';
-import { TonConnectButton, useTonConnectUI, useTonAddress } from '@tonconnect/ui-react';
 import Icons from '../Common/IconsComponent.jsx';
 import { closeToggler } from '../../helpers/closeBtn';
 
@@ -12,22 +11,12 @@ const Header = ({ user }) => {
 	const [isLeaderboardOpen, setLeaderboardOpen] = useState(false);
 	const [getLeaderboard] = useGetLeaderboardMutation();
 
-	const [isWalletButtonRef, setIsWalletButtonRef] = useState(false);
-	const [tonConnectUI] = useTonConnectUI();
-	const ton_address = useTonAddress(true);
-
 	const popupClsTgl = isLeaderboardOpen ? 'popupLeaderboard_show' : null;
 	const popupClasses = `popupLeaderboard ${popupClsTgl}`;
 
 	const containerRef = useRef(null);
 
 	const tg = window.Telegram.WebApp;
-
-	const showConnectModal = () => {
-		setIsWalletButtonRef(true);
-		setTimeout(() => setIsWalletButtonRef(false), 200);
-		if (!tonConnectUI.connected) tonConnectUI.openModal();
-	};
 
 	const getLeaderboardBtn = () => {
 		const fetchData = async () => {
@@ -69,92 +58,10 @@ const Header = ({ user }) => {
 		if (footerTag) footerTag.classList.remove('show-blur');
 	};
 
-	const submitWallet = async () => {
-		if (ton_address) {
-			try {
-				const res = await setWallet({
-					token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
-					wallet_address: ton_address,
-					id_telegram: user?.id_telegram,
-				}).unwrap();
-			} catch (e) {
-				console.log(e);
-			}
-		}
-	};
-
-	const updateWallet = async () => {
-		if (ton_address) {
-			try {
-				const res = await changeWallet({
-					token: await bcrypt.hash(secretKey + dateStringWithTime, 10),
-					wallet_address: ton_address,
-					user_id: user?.id,
-				}).unwrap();
-			} catch (e) {
-				console.log(e);
-			}
-		}
-	};
-
-	useEffect(() => {
-		const handleWalletLogic = async () => {
-			if (ton_address) {
-				if (user?.wallet_address === null) {
-					await submitWallet();
-				} else if (
-					user?.wallet_address !== null &&
-					ton_address !== user?.wallet_address
-				) {
-					await updateWallet();
-				}
-			}
-		};
-
-		handleWalletLogic();
-	}, [ton_address, user]);
-
 	return (
 		<>
 			<header id='header' className='header'>
 				<div className='header__btn-group'>
-					<div
-						className='header__menuBtn'
-						style={{
-							position: 'absolute',
-							left: '12px',
-							overflow: 'hidden',
-						}}
-						onClick={() => showConnectModal()}
-					>
-						<Icons.WalletIcon />
-						<div className={` ${isWalletButtonRef ? 'active' : ''}`}></div>
-						<div
-							style={{
-								position: 'absolute',
-								left: '50px',
-								overflow: 'hidden',
-							}}
-						>
-							<TonConnectButton
-								style={{
-									position: 'absolute',
-									left: '50px',
-									zIndex: '100',
-								}}
-							/>
-						</div>
-					</div>
-					<label
-						style={{
-							position: 'absolute',
-							top: '76px',
-							left: '14px',
-						}}
-						htmlFor='header__menuBtn'
-					>
-						Wallet
-					</label>
 					<button
 						className='header__menuBtn'
 						ref={containerRef}
@@ -200,6 +107,91 @@ const Header = ({ user }) => {
 										}`}
 										key={index}
 									> */}
+									<li className='popupLeaderboard__tableItem'>
+										<div className='popupLeaderboard__itemData'>
+											<div className='popupLeaderboard__id'>
+												<Icons.playerID />
+												{/* <span>{player.position ?? 123123}</span> */}
+												<span>1</span>
+											</div>
+											<div className='popupLeaderboard__playerName'>
+												{/* <span>{player.username ?? 'anonymous'}</span> */}
+												<span>anonymous</span>
+											</div>
+											<div className='popupLeaderboard__coins'>
+												{/* <span>{player.wallet_balance ?? 123123}</span> */}
+												<span>123123</span> <img src={deganCoin} alt='Degan Coin Icon' />
+											</div>
+										</div>
+									</li>
+									<li className='popupLeaderboard__tableItem'>
+										<div className='popupLeaderboard__itemData'>
+											<div className='popupLeaderboard__id'>
+												<Icons.playerID />
+												{/* <span>{player.position ?? 123123}</span> */}
+												<span>1</span>
+											</div>
+											<div className='popupLeaderboard__playerName'>
+												{/* <span>{player.username ?? 'anonymous'}</span> */}
+												<span>anonymous</span>
+											</div>
+											<div className='popupLeaderboard__coins'>
+												{/* <span>{player.wallet_balance ?? 123123}</span> */}
+												<span>123123</span> <img src={deganCoin} alt='Degan Coin Icon' />
+											</div>
+										</div>
+									</li>
+									<li className='popupLeaderboard__tableItem'>
+										<div className='popupLeaderboard__itemData'>
+											<div className='popupLeaderboard__id'>
+												<Icons.playerID />
+												{/* <span>{player.position ?? 123123}</span> */}
+												<span>1</span>
+											</div>
+											<div className='popupLeaderboard__playerName'>
+												{/* <span>{player.username ?? 'anonymous'}</span> */}
+												<span>anonymous</span>
+											</div>
+											<div className='popupLeaderboard__coins'>
+												{/* <span>{player.wallet_balance ?? 123123}</span> */}
+												<span>123123</span> <img src={deganCoin} alt='Degan Coin Icon' />
+											</div>
+										</div>
+									</li>
+									<li className='popupLeaderboard__tableItem'>
+										<div className='popupLeaderboard__itemData'>
+											<div className='popupLeaderboard__id'>
+												<Icons.playerID />
+												{/* <span>{player.position ?? 123123}</span> */}
+												<span>1</span>
+											</div>
+											<div className='popupLeaderboard__playerName'>
+												{/* <span>{player.username ?? 'anonymous'}</span> */}
+												<span>anonymous</span>
+											</div>
+											<div className='popupLeaderboard__coins'>
+												{/* <span>{player.wallet_balance ?? 123123}</span> */}
+												<span>123123</span> <img src={deganCoin} alt='Degan Coin Icon' />
+											</div>
+										</div>
+									</li>
+									<li className='popupLeaderboard__tableItem'>
+										<div className='popupLeaderboard__itemData'>
+											<div className='popupLeaderboard__id'>
+												<Icons.playerID />
+												{/* <span>{player.position ?? 123123}</span> */}
+												<span>1</span>
+											</div>
+											<div className='popupLeaderboard__playerName'>
+												{/* <span>{player.username ?? 'anonymous'}</span> */}
+												<span>anonymous</span>
+											</div>
+											<div className='popupLeaderboard__coins'>
+												{/* <span>{player.wallet_balance ?? 123123}</span> */}
+												<span>123123</span> <img src={deganCoin} alt='Degan Coin Icon' />
+											</div>
+										</div>
+									</li>
 									<li className='popupLeaderboard__tableItem'>
 										<div className='popupLeaderboard__itemData'>
 											<div className='popupLeaderboard__id'>

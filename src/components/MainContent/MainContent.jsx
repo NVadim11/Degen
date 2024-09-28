@@ -548,15 +548,11 @@ const MainContent = ({ user }) => {
 											/>
 										</div>
 									</div>
-									<div className='mainContent__footer'></div>
 								</>
 							)}
 						</>
 					)}
 				</div>
-			</div>
-			<div className='wave'>
-				<img src={altBgWave} alt='background wave' />
 			</div>
 		</div>
 	);

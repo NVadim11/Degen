@@ -52,25 +52,27 @@ body::after {
 }
 
 .footerMain {
-    z-index: 14;
+    z-index: 30;
     position: relative;
-    margin: 0px 0 40px 0;
     @media (max-width: 359px) { 
       scale: 0.9;
     }
   &__container {
+    margin-bottom: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
   &__activities {
+    z-index: 30;
     display: flex;
     border-radius: 18px;
     margin: 15px 10px;
     gap: 15px;
   }
   &__activitiesBtn {
+    z-index: 30;
     position: relative;
     button {
         border-radius: 16px;
@@ -118,12 +120,14 @@ body::after {
     }
   }
   &__inviteFr {
+    z-index: 30;
     display: flex;
     font-weight: 400;
     font-size: 24px;
     text-align: center;
   }
   &__activitiesHint {
+    z-index: 30;
     position: absolute;
     border: 2px solid rgba(255, 255, 255, 0.6);
     border-radius: 3.75rem;
@@ -143,6 +147,7 @@ body::after {
 }
 
 .popupTasks {
+  z-index: 30;
     display: flex;
     zoom: 0.9;
   &__wrapper {
@@ -154,13 +159,16 @@ body::after {
     border-radius: 20px;
     padding: 0px 12px;
     background: transparent;
+    z-index: 30;
   }
   &__close {
+    z-index: 30;
 		position: absolute;
 		top: 0px;
 		right: 15px;
   }
   &__title {
+    z-index: 30;
 		margin-top: 46px;
     display: flex;
     position: relative;
@@ -175,12 +183,14 @@ body::after {
       }
   }
   &__coins {
+    z-index: 30;
       position: relative;
       display: flex;
       align-self: center;
       justify-content: center;
     }
   &__coinBox {
+    z-index: 30;
     display: flex;
     margin-top: 24px;
     align-items: center;
@@ -205,6 +215,7 @@ body::after {
     }
   }
   &__tabBtns {
+    z-index: 30;
     margin-top: 26px;
     display: flex;
     gap: 15px;
@@ -224,6 +235,7 @@ body::after {
     }
   }
   &__tasks {
+    z-index: 30;
     display: none;
     &.active {
       margin-top: 15px;
@@ -233,6 +245,7 @@ body::after {
     }
   }
   &__task {
+    z-index: 30;
     display: flex;
     position: relative;
     justify-content: space-between;
@@ -381,11 +394,13 @@ body::after {
     flex-direction: column;
     position: relative;
     input {
+      font-family: "SFproReg";
       padding: 10px 0 10px 10px;
       height: 100%;
       width: 100%;
     }
     input::placeholder {
+      font-family: "SFproReg";
       font-weight: 400;
       font-size: 14px;
       line-height: 140%;
@@ -426,7 +441,7 @@ body::after {
     height: 100%;
     width: 44px;
     backdrop-filter: blur(4px);
-    background: #2cb726;
+    background: var(--goldColor);
     svg {
       width: 24px;
       height: 24px;
@@ -471,13 +486,12 @@ body::after {
     right: 0;
   }
   &__walletTask-left {
-    border: 1px solid #0d9047;
     border-radius: 31px;
-    padding: 0 12px;
+    padding: 12px 12px;
     height: 20px;
     display: flex;
     align-items: center;
-    background: #2cb726;
+    background: var(--goldColor);
     img {
       position: absolute;
       right: 0;
@@ -493,7 +507,7 @@ body::after {
     }
   }
   &__walletTask-input {
-    outline: 2px solid #0d9047;
+    outline: 2px solid #fff;
     position: relative;
     // font-weight: 600;
     // font-size: 14px;
@@ -531,7 +545,7 @@ body::after {
       font-size: 12px;
       line-height: 100%;
       letter-spacing: 0.03em;
-      color: #1c2520;
+      color: var(--mainColor);
       opacity: 0.72;
     }
   }
