@@ -5,7 +5,7 @@
 	justify-content: center;
 	position: absolute;
 	width: 95%;
-  z-index: 25;
+  z-index: 40;
   transition: visibility 0.8s ease 0s;
 	border-radius: 24px;
 	overflow: hidden;
@@ -14,7 +14,7 @@
 	margin: 40% 0 0 0;
 	align-self: center;
 	button {
-		z-index: 25;
+		z-index: 40;
 	}
 	&__layer {
 		position: fixed;

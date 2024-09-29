@@ -93,11 +93,11 @@ const Footer = ({ user }) => {
 					id_telegram: user?.id_telegram,
 				}).unwrap();
 				setWalletInputDisabled(true);
-				openModal('green', `${t('modalWalletSubmitSucc')}`, `${t('modalReturn')}`);
+				openModal('green', `modalSuccess`, `modalReturn`);
 				blurPopupTasks();
 				toggleSecond();
 			} catch (e) {
-				openModal('red', `${t('modalWalletSubmitBusy')}`, `${t('modalReturn')}`);
+				openModal('red', `modalError`, `modalReturn`);
 				blurPopupTasks();
 			}
 		}
@@ -112,11 +112,11 @@ const Footer = ({ user }) => {
 					user_id: user?.id,
 				}).unwrap();
 				setWalletInputDisabled(true);
-				openModal('green', `${t('modalWalletChangeSucc')}`, `${t('modalReturn')}`);
+				openModal('green', `modalSuccess`, `modalReturn`);
 				blurPopupTasks();
 				toggleSecond();
 			} catch (e) {
-				openModal('red', `${t('modalWalletChangeBusy')}`, `${t('modalReturn')}`);
+				openModal('red', `modalError`, `modalReturn`);
 				blurPopupTasks();
 			}
 		}
