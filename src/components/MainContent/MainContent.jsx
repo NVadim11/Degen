@@ -25,8 +25,8 @@ const MainContent = ({ user }) => {
 	const [boostPhase, setBoostPhase] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const [tigerVisible, setTigerVisible] = useState(true);
-	let [energyVal, setEnergyVal] = useState(1);
-	let [clickNewCoins, setClickNewCoins] = useState(1);
+	let [energyVal, setEnergyVal] = useState(33);
+	let [clickNewCoins, setClickNewCoins] = useState(33);
 	const [gamePaused, setGamePaused] = useState(false);
 	const [timeRemaining, setTimeRemaining] = useState('');
 	const [isAnimationActive, setIsAnimationActive] = useState(false);
