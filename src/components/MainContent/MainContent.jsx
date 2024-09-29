@@ -47,9 +47,7 @@ const MainContent = ({ user }) => {
 
 	// aws
 	const secretKey = process.env.REACT_APP_SECRET_KEY;
-
 	const secretURL = process.env.REACT_APP_SECRET_URL;
-	const testURL = process.env.REACT_APP_TEST_URL;
 
 	const isDesktop = () => {
 		const userAgent = window.navigator.userAgent;

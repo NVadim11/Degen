@@ -1,6 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const dotenv = require('dotenv');
+
+const env = dotenv.config().parsed;
+
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next]);
+  return prev;
+}, {});
 
 module.exports = {
   entry: './src/index.js',
@@ -29,15 +37,15 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/, 
+        test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.scss$/, 
+        test: /\.scss$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif|webp|svg)$/i, 
+        test: /\.(png|jpe?g|gif|webp|svg)$/i,
         type: 'asset/resource',
         generator: {
           filename: 'images/[hash][ext][query]',
@@ -51,14 +59,9 @@ module.exports = {
       template: './public/index.html',
       filename: 'index.html',
     }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        REACT_APP_REGISTER_KEY: JSON.stringify(process.env.REACT_APP_REGISTER_KEY),
-        REACT_APP_SECRET_URL: JSON.stringify(process.env.REACT_APP_SECRET_URL),
-      },
-    }),
+    new webpack.DefinePlugin(envKeys), 
     new webpack.ProvidePlugin({
-      process: 'process/browser.js', 
+      process: 'process/browser.js',
       Buffer: ['buffer', 'Buffer'],
     }),
   ],
