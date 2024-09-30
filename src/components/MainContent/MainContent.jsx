@@ -497,9 +497,7 @@ const MainContent = ({ user }) => {
 													<img src={energy} alt='' />
 													<p className='energyCount' id='energyCount'>
 														{currEnergy}
-													</p>
-													<span>/</span>
-													<p className='maximumEnergy' id='maximumEnergy'>
+														<span>/</span>
 														{maxEnergy}
 													</p>
 												</div>
